@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WishIT</title>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCZJFlf1Q-uKORv49mZwHqKwYxjZMYpYxg",
+    authDomain: "fir-f9d7a.firebaseapp.com",
+    databaseURL: "https://fir-f9d7a.firebaseio.com",
+    projectId: "fir-f9d7a",
+    storageBucket: "fir-f9d7a.appspot.com",
+    messagingSenderId: "526422688230",
+    appId: "1:526422688230:web:a4c71e058f33d2fa30d627"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+  var uid = "JWJ3uGUGe2Q5lV2DjxrC708ivpR2";
+</script>
+</head>
+<body>
+    <h1>Let's read from database: <span id="data">...</span></h1>
+    <script>
+        function Item(name, price, is_claimed, number) {
+            this.name = name;
+            this.price = price;
+            this.is_claimed = is_claimed;
+            this.number = number;
+        }
+        let new_item = new Item("Toilet Paper", 12.00, false, 190909);
+        //db.collection("users").doc(uid).collection("wishlist").get().then(function(querySnapshot) {
+        //    querySnapshot.forEach(function(doc) {
+        //        console.log(doc.id, " => ", doc.data());
+        //    });
+        //});
+
+        // Put items that are available to put in the wishlist into a dictionary (map) where the keys are the item names 
+        // and the values are the properties of that item.
+        // We are reading all the items in the database so that we can use them to display a "catalogue" of items in the
+        // item for the users to add them into their wishlist. It will also be used for returning a search query for items.
+        // create item name: item properties dictionary
+        function getItemDocs() {    // add all items from the database into the dictionary
+            let item_map = {};
+            db.collection("items").get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    item_map[doc.id] = doc.data();
+                });
+            })
+            return item_map;
+        }
+        
+        // Add the on-click item from the home page or search query result item onto the user's wishlist.
+        // We are adding documents to the user's wishlist sub-collection in the database so that the user's wishlist 
+        //can be displayed on the user's profile page.
+        function addItem(item) {  //item is an object with properties name, price, is_claimed, and number
+            db.collection("users").doc(uid).collection("wishlist").doc(item.name).set({
+                item_name: item.name, // e.g. "Toilet Paper"
+                price: item.price, // e.g. 12.00
+                is_claimed: item.is_claimed, // e.g. false
+                number: item.number // e.g. 190909
+            })
+                .then(function() { // display message on console when the document is successfully added 
+                    console.log(item.name + " successfully added to the wishlist");
+                })
+                .catch(function() { // display an error message on console when document could not be added
+                    console.error("Error adding " + item.name + " to wishlist");
+                })
+        }
+
+        //remove item from my wishlist
+        function removeItem(item) {
+            db.collection("users").doc(uid).collection("wishlist").doc(item.name).delete().then(function() {
+                console.log(item.name + " successfully removed."); }).catch(function(error) {
+                    console.error("Error removing document: ", error);
+                });
+        }
+
+        function addFriend(user) {  // transfer document from user collection docs to friend list sub collection
+        //or have a reference to the users collection (reference it and call the doc to get that friend's info)
+            db.collection("users").doc(user).collection(friends).doc(user.displayName).set({
+                uid: db.collection("users").doc(user_id).uid // use HTML id user_name
+            });
+        }
+
+        //Set user privacy settings into the database
+        function setProfilePrivacy() {
+            var userPrivacyRef = db.collection("users").doc(uid.private);
+            var setWithMerge = userPrivacyRef.set({
+                privacy: false // modify value to user form input value
+            }, {merge: true});
+        }
+        
+        //Gives item details when user clicks the item
+        function clickItemName(itemName) { // itemName is from input form value (search bar)
+            itemName = itemName.toLowerCase();
+            item_map = getItemDocs();
+            return item_map[itemName];
+        }
+
+        //db.collection("users").get().then(function(querySnapshot) {
+            //querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                //console.log(doc.id, " => ", doc.data());
+            //});
+        //});
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                db.collection("users").doc(user.uid).set({
+                    name: user.displayName,
+                    email: user.email
+                }, {merge: true});
+            }
+        });
+
+    </script>
+    <div class="top">
+    </div>
+    <div id="search_bar">
+
+    </div>
+    <div id="item_catalogue">
+        <div id="catalogue1">
+            <ul>
+                <li>
+                    <img onclick="addItem(this);" />
+                </li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div id="catalogue2"></div>
+        <div id="catalogue3"></div>
+    </div>
+</body>
+</html>
