@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap 4 Website Example</title>
+    <meta charset="utf-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>searchResult.html</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' type='text/css' href="style.css">
+
+    <link rel='stylesheet' type='text/css' href="mainCSS.css">
+
+</head>
+
+<body>
+
+    <body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">WishIt</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">My Wishlist</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Friends</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- search bar-->
+        <div class='container'>
+            <div class="form-inline center col-12 col-sm-10 col-md-8 col-lg-6">
+                <select class="browser-default custom-select col-2 dropdownMenu">
+                    <option selected value="user">User</option>
+                    <option value="item">Item</option>
+                </select>
+                <input class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
+                <button type='submit' class='btn search-btn col-2'>Search</button>
+            </div>
+        </div>
+
+
+        <!-- search result-->
+        <div class="jumbotron">
+            <div class="card col-12 col-lg-6">
+                <div class="card-body">
+                    <img src="#" alt="result">
+                    <p class="result_info">Not found</p>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+
+</html>
