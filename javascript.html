@@ -10,9 +10,6 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
-
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
@@ -84,6 +81,10 @@
                 })
         }
 
+        function querySearchResults(elem) { // on click
+            db.collection()
+        }
+
         //remove item from my wishlist
         function removeItem(item) {
             db.collection("users").doc(uid).collection("wishlist").doc(item.name).delete().then(function() {
@@ -128,27 +129,5 @@
                 }, {merge: true});
             }
         });
-
     </script>
-    <div class="top">
-    </div>
-    <div id="search_bar">
-
-    </div>
-    <div id="item_catalogue">
-        <div id="catalogue1">
-            <ul>
-                <li>
-                    <img onclick="addItem(this);" />
-                </li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div id="catalogue2"></div>
-        <div id="catalogue3"></div>
-    </div>
-</body>
 </html>
