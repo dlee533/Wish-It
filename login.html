@@ -44,9 +44,14 @@
         var uiConfig = {
         callbacks: {
         signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-        // User successfully signed in.
-        // Return type determines whether we continue the redirect automatically
-        // or whether we leave that to developer to handle.
+        var user = authResult.user;
+        if (authResult.additionalUserInfo.isNewUser) {
+            db.collection("users").doc(user.uid).set({
+                name: user,
+                birth_date: 19990909,
+                privacy: public
+        })
+
         return true;
         },
         uiShown: function() {
