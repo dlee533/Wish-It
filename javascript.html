@@ -121,13 +121,5 @@
                 //console.log(doc.id, " => ", doc.data());
             //});
         //});
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                db.collection("users").doc(user.uid).set({
-                    name: user.displayName,
-                    email: user.email
-                }, {merge: true});
-            }
-        });
     </script>
 </html>
