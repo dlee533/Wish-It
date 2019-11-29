@@ -305,11 +305,28 @@
                 
         //    });
         //});
+
+        //store elements with same class name as list
+        let itemNameClassElemList = document.getElementsByClassName("itemNmae");
+        let itemPriceClassElemList = document.getElementsByClassName("itemPrice");
+        let itemImageClassElemList = document.getElementsByClassName("itemImage");
+
+        let itemIdNumberMap = {}
+        let i = 0;
+
         db.collection("items").where("category", "==", "tech").limit(5).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
+            let itemPricesFromDb = [];
+            let itemNamesFromDb = [];
+            let itemImgSrcsFromDb = [];
+                                    //    console.log(doc.id, " => ", doc.data());
+            itemNameClassElemList[i].innerHTML = doc.id;
+            itemPriceClassElemList[i].innerHTML = doc.data().price
+            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            i++;
             });
+
         });
     }
     readAllItems();
