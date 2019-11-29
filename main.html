@@ -8,7 +8,11 @@
   <meta name="author" content="">
 
   <title>index.html</title>
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
 
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+<script src="firebaseConfig.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -32,7 +36,7 @@
             <a class="nav-link" href="underConstruction.html">My Profile</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link log" href="login.html">Log-in</a>
+            <a class="nav-link log" href="login.html">Sign out</a>
             <!--change the text when the user signs in -->
           </li>
         </ul>
@@ -50,15 +54,6 @@
     <input class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
     <button type='submit' class='btn search-btn col-2'>Search</button>
   </div>
-  </div>
-
-  <!--page description-->
-  <div class="jumbotron pageDescription">
-    <div class="card">
-      <p>Welcome to Wishit!</p>
-      <p> Sign in to create wishlist</p>
-      <p>Share them with your friends</p>
-    </div>
   </div>
 
   <!--Item display-->
@@ -291,6 +286,19 @@
         </div>
       </div>
     </div>
+
+
+<script>
+    var db = firebase.firestore();
+    function readAllItems() {
+        db.collection("items").get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+            });
+        });
+    }
+</script>
 </body>
 
 </html>
