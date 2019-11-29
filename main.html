@@ -33,7 +33,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="underConstruction.html">My Profile</a>
+            <a class="nav-link" id="myProfile">My Profile</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link log" href="login.html">Sign out</a>
@@ -375,6 +375,14 @@
         });
     }
     readAllItems();
+
+    function myProfileDirect() {
+        let my_profile = document.getElementById("myProfile");
+        my_profile.onclick = function() {
+            window.location.href = "profile.html?" + localStorage.getItem('userId');
+        };
+    }
+    myProfileDirect();
     
     
 </script>
