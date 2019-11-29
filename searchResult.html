@@ -103,7 +103,11 @@
             });
         }
         function queryItemsResults() {
-
+            db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue+'\uf8ff').get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    console.log(doc.data());
+                });
+            });
         }
         
     </script>
