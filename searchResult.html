@@ -70,11 +70,7 @@
                     <p class="result_info" id="resultInfoLabel">Results:</p>
                     <div class="result_list" id="results">
                         <!--create search block elements with JS-->
-                        <div>
-                            <img />
-                            <p id="name"></p>
-                            <p id="price"></p>
-                        </div>
+                    
                     </div>
                 </div>
             </div>
@@ -101,19 +97,34 @@
             db.collection("users").orderBy('display_name').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     //console.log(doc.id, doc.data());
-                    createUserBlockResult(doc.data());
+                    createUserBlockResults(doc.data());
                 });
             });
+        }
+        function createUserBlockResults(data) {
+            divElem = document.createElement("DIV");
+            imgElem = document.createElement("IMG");
+            pElemName = document.createElement("P");
+            pElemBackground = document.createElement("P");
+            parentDiv = document.getElementById("results");
+            parentDiv.appendChild(divElem);
+            divElem.appendChild(imgElem);
+            divElem.appendChild(pElemName);
+            divElem.appendChild(pElemBackground);
+            imgElem.setAttribute("SRC", data.profile_photo);    //to be added on user's profile page and update to db
+            imgElem.setAttribute("WIDTH", 150+'px');        // to be edited with CSS; temporary here for testing
+            pElemName.innerHTML = data.display_name;
+            pElemBackground.innerHTML = "Vancouver, Canada";    //short bio (residence location, education background)
         }
         function queryItemsResults() {
             db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     //console.log(doc.data()); 
-                    createItemBlockResult(doc.id, doc.data());
+                    createItemBlockResults(doc.id, doc.data());
                 });
             });
         }
-        function createItemBlockResult(name, data) {
+        function createItemBlockResults(name, data) {
             divElem = document.createElement("DIV");
             imgElem = document.createElement("IMG");
             pElemName = document.createElement("P");
