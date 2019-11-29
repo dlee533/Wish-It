@@ -57,6 +57,7 @@
   </div>
 
   <!--Item display-->
+<div id="display">
   <div class='jumbotron'>
     <h1 class='display-3'>Technology</h1>
     <div class='row'>
@@ -286,37 +287,34 @@
         </div>
       </div>
     </div>
+</div>
 
 
 <script>
     var db = firebase.firestore();
+
     function readAllItems() {
-        db.collection("items").get().then(function(querySnapshot) {
+        let itemNamesList = [];
+        let priceList = [];
+        let imgSrcList = [];
+        let itemIdList = [];
+        //db.collection("items").get().then(function(querySnapshot) {
+        //    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                //console.log(doc.id, " => ", doc.data());
+                
+        //    });
+        //});
+        db.collection("items").where("category", "==", "tech").limit(5).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                createItemSlot(doc.id, doc.data());
             });
         });
     }
-    function createItemSlot(itemName, itemMap) {
-        for (let row = 0; row < 5; row++) {
-            for (let i = 0; i < 5; i++) {
-                
-            }
-        }
-    }
-    function createElement(elem, className, attList) {
-        let element = document.createElement(elem);
-        element.className = className;
-        if (attList !== []) {
-            for (let i = 0; i < attList.length; i+2) {
-                let attribute = attList[i];
-                let value = attList[i+1];
-                element.setAttribute(attribute, value);
-            }
-        }
-    }
+    readAllItems();
+    
+    
 </script>
 </body>
 
