@@ -85,19 +85,20 @@
         let tempVar = queryStringURL.split('?');
         let passedValue = tempVar[1];
         tempVar = passedValue.split('=');
-        let selectionType = tempVar[0].toLowerCase;
-        let searchValue = tempVar[1].toLowerCase;
+        let selectionType = tempVar[0].toLowerCase();
+        let searchValue = tempVar[1].toLowerCase();
+        console.log('HELLO', selectionType, typeof(selectionType), searchValue, typeof(searchValue));
 
-        if (selectionType === "users") {
+        if (String(selectionType) === "users") {
+            console.log('yes');
             queryUsersResults();
         } else {
             queryItemsResults();
         }
-
         function queryUsersResults() {
-            db.collection("users").where("display_name", "LIKE", searchValue[0]+"%"+"or%"+searchValue[1]).get().then(function(querySnapshot) {
+            db.collection("users").orderBy('display_name').startAt(searchValue).endAt(searchValue+'\uf8ff').get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    console.log(doc.id);
+                    console.log(doc.data());
                 });
             });
         }
