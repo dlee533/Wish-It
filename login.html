@@ -59,6 +59,12 @@
               name: user.displayName,
               email: user.email
           })
+          .then(function () {
+              window.location.assign('main.html');
+          })
+          .catch(function(error) {
+              console.log("something bad happened");
+          });
         }
         else 
         {
