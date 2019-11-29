@@ -57,8 +57,9 @@
       // or whether we leave that to developer to handle.
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
-          db.collection("users").doc(user.uid).set({
+          db.collection("users").doc(user.uid).add({
               name: user.displayName,
+              email: user.email
           })
           .then(function() {
               console.log("new user added successfully");
@@ -91,6 +92,16 @@
   // Privacy policy url.
   privacyPolicyUrl: '<your-privacy-policy-url>'
 };
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    localStorage.setItem('userId', user.uid);
+    console.log(user.email);
+    
+    // User is signed in.
+  } else {
+    // No user is signed in.
+  }
+});
     </script>
 
     <script>

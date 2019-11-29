@@ -29,19 +29,19 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var db = firebase.firestore();
-  var uid = "JWJ3uGUGe2Q5lV2DjxrC708ivpR2";
 </script>
 </head>
 <body>
     <h1>Let's read from database: <span id="data">...</span></h1>
     <script>
+        console.log(user.uid);
         function Item(name, price, is_claimed, number) {
             this.name = name;
             this.price = price;
             this.is_claimed = is_claimed;
             this.number = number;
         }
-        let new_item = new Item("Toilet Paper", 12.00, false, 190909);
+        let new_item = new Item("Toilet Paper", 12.00, false, 190909); // imitation of a specific item map
         //db.collection("users").doc(uid).collection("wishlist").get().then(function(querySnapshot) {
         //    querySnapshot.forEach(function(doc) {
         //        console.log(doc.id, " => ", doc.data());
@@ -67,11 +67,12 @@
         // We are adding documents to the user's wishlist sub-collection in the database so that the user's wishlist 
         //can be displayed on the user's profile page.
         function addItem(item) {  //item is an object with properties name, price, is_claimed, and number
-            db.collection("users").doc(uid).collection("wishlist").doc(item.name).set({
+            db.collection("users").doc(localStorage.getItem('userId').collection("wishlist").doc(item.name).add({
                 item_name: item.name, // e.g. "Toilet Paper"
                 price: item.price, // e.g. 12.00
                 is_claimed: item.is_claimed, // e.g. false
-                number: item.number // e.g. 190909
+                number: item.number, // e.g. 190909
+                item: "/items/" + item.name
             })
                 .then(function() { // display message on console when the document is successfully added 
                     console.log(item.name + " successfully added to the wishlist");
@@ -84,6 +85,8 @@
         function querySearchResults(elem) { // on click
             db.collection()
         }
+
+        
 
         //remove item from my wishlist
         function removeItem(item) {
