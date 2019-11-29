@@ -59,3 +59,12 @@ h1{
 .jumbotron{
     padding: 10px;
 }
+.followingStatus{
+    background-color: #FFF1CE;
+    border: 1px solid #D1C346;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.btn{
+    background-color: #FFF1CE;
+    border: 1px solid #D1C346;
+}
