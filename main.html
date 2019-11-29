@@ -292,7 +292,7 @@
 
 <script>
     var db = firebase.firestore();
-    let itemIdNumberMap;
+    let itemIdNumberMap;    // to be used for onclick events of individual items (write to db for adding into the user's wishlist)
 
     function readAllItems() {
         let itemNamesList = [];

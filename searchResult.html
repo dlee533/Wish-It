@@ -80,6 +80,7 @@
 
     </body>
     <script>
+        let db = firebase.firestore();
         let queryStringURL = decodeURIComponent(window.location.search);
         let tempVar = queryStringURL.split('?');
         let passedValue = tempVar[1];
@@ -90,13 +91,30 @@
         if (selectionType === "users") {
             queryUsersResults();
         } else {
-            queryItemResults();
+            queryItemsResults();
         }
+        db.collection("items").where("category", "==", "house products").limit(6).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                                    //    console.log(doc.id, " => ", doc.data());
+            itemNameClassElemList[i].innerHTML = doc.id;
+            itemPriceClassElemList[i].innerHTML = doc.data().price
+            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemIdNumberMap[doc.id] = doc.data().item_number;
+            i++;
+            });
+
+        });
 
         function queryUsersResults() {
-
+            db.collection("users").where("display_name", "like", "searchValue").get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    
+                });
+            });
         }
         function queryItemsResults() {
+
         }
         
     </script>
