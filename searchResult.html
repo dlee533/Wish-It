@@ -11,6 +11,9 @@
     <meta name="author" content="">
 
     <title>searchResult.html</title>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+    <script src="firebaseConfig.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -68,12 +71,22 @@
             <div class="card col-12 col-lg-6">
                 <div class="card-body">
                     <img src="#" alt="result">
-                    <p class="result_info">Not found</p>
+                    <p class="result_info" id="resultInfoLabel">Results:</p>
+                    <p class="result_info" id="results"></p>
                 </div>
             </div>
         </div>
 
 
     </body>
+    <script>
+        let queryStringURL = decodeURIComponent(window.location.search);
+        let tempVar = queryStringURL.split('?');
+        let passedValue = tempVar[1];
+        tempVar = passedValue.split('=');
+        let selectionType = tempVar[0];
+        let searchValue = tempVar[1];
+        console.log(selectionType, searchValue);
+    </script>
 
 </html>
