@@ -69,7 +69,14 @@
                 <div class="card-body">
                     <img src="#" alt="result">
                     <p class="result_info" id="resultInfoLabel">Results:</p>
-                    <p class="result_info" id="results"></p>
+                    <div class="result_list" id="results">
+                        <!--create search block elements with JS-->
+                        <div>
+                            <img />
+                            <p id="name"></p>
+                            <p id="price"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,18 +99,32 @@
             queryItemsResults();
         }
         function queryUsersResults() {
-            db.collection("users").orderBy('display_name').startAt(searchValue).endAt(searchValue+'\uf8ff').get().then(function(querySnapshot) {
+            db.collection("users").orderBy('display_name').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    
+                });
+            });
+        }
+        function queryItemsResults() {
+            db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
                     console.log(doc.data());
                 });
             });
         }
-        function queryItemsResults() {
-            db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue+'\uf8ff').get().then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    console.log(doc.data());
-                });
-            });
+        function createItemBlockResult(name, data) {
+            divElem = document.createElement("DIV");
+            imgElem = document.createElement("IMG");
+            pElemName = document.createElement("P");
+            pElemPrice = document.createElement("P");
+            parentDiv = document.getElementById("results");
+            parentDiv.appendChild(divElem);
+            divElem.appendChild(imgElem);
+            divElem.appendChild(pElemName);
+            divElem.appendChild(pElemPrice);
+            imgElem.setAttribute("SRC", data.img_src);
+            pElemName.innerHTML = name;
+            pElemPrice.innerHTML = '$' + data.price;
         }
         
     </script>
