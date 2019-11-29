@@ -84,9 +84,21 @@
         let tempVar = queryStringURL.split('?');
         let passedValue = tempVar[1];
         tempVar = passedValue.split('=');
-        let selectionType = tempVar[0];
-        let searchValue = tempVar[1];
-        console.log(selectionType, searchValue);
+        let selectionType = tempVar[0].toLowerCase;
+        let searchValue = tempVar[1].toLowerCase;
+
+        if (selectionType === "users") {
+            queryUsersResults();
+        } else {
+            queryItemResults();
+        }
+
+        function queryUsersResults() {
+
+        }
+        function queryItemsResults() {
+        }
+        
     </script>
 
 </html>
