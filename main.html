@@ -314,7 +314,55 @@
         let itemIdNumberMap = {}
         let i = 0;
 
-        db.collection("items").where("category", "==", "tech").limit(5).get().then(function(querySnapshot) {
+        db.collection("items").where("category", "==", "tech").limit(6).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                                    //    console.log(doc.id, " => ", doc.data());
+            itemNameClassElemList[i].innerHTML = doc.id;
+            itemPriceClassElemList[i].innerHTML = doc.data().price
+            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemIdNumberMap[doc.id] = doc.data().item_number;
+            i++;
+            });
+
+        });
+        db.collection("items").where("category", "==", "clothing and shoes").limit(6).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                                    //    console.log(doc.id, " => ", doc.data());
+            itemNameClassElemList[i].innerHTML = doc.id;
+            itemPriceClassElemList[i].innerHTML = doc.data().price
+            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemIdNumberMap[doc.id] = doc.data().item_number;
+            i++;
+            });
+
+        });
+        db.collection("items").where("category", "==", "office equipment").limit(6).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                                    //    console.log(doc.id, " => ", doc.data());
+            itemNameClassElemList[i].innerHTML = doc.id;
+            itemPriceClassElemList[i].innerHTML = doc.data().price
+            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemIdNumberMap[doc.id] = doc.data().item_number;
+            i++;
+            });
+
+        });
+        db.collection("items").where("category", "==", "sports equipment").limit(6).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                                    //    console.log(doc.id, " => ", doc.data());
+            itemNameClassElemList[i].innerHTML = doc.id;
+            itemPriceClassElemList[i].innerHTML = doc.data().price
+            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemIdNumberMap[doc.id] = doc.data().item_number;
+            i++;
+            });
+
+        });
+        db.collection("items").where("category", "==", "house products").limit(6).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
                                     //    console.log(doc.id, " => ", doc.data());
