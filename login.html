@@ -37,7 +37,7 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
+        
     </script>
 
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
@@ -45,6 +45,7 @@
 
     <script>
         // Initialize the FirebaseUI Widget using Firebase.
+        var db = firebase.firestore();
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
   callbacks: {
