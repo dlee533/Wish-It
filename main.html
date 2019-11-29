@@ -295,8 +295,27 @@
             querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
+                createItemSlot(doc.id, doc.data());
             });
         });
+    }
+    function createItemSlot(itemName, itemMap) {
+        for (let row = 0; row < 5; row++) {
+            for (let i = 0; i < 5; i++) {
+                
+            }
+        }
+    }
+    function createElement(elem, className, attList) {
+        let element = document.createElement(elem);
+        element.className = className;
+        if (attList !== []) {
+            for (let i = 0; i < attList.length; i+2) {
+                let attribute = attList[i];
+                let value = attList[i+1];
+                element.setAttribute(attribute, value);
+            }
+        }
     }
 </script>
 </body>
