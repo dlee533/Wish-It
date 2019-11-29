@@ -67,7 +67,6 @@
         <div class="jumbotron">
             <div class="card col-12 col-lg-6">
                 <div class="card-body">
-                    <img src="#" alt="result">
                     <p class="result_info" id="resultInfoLabel">Results:</p>
                     <div class="result_list" id="results">
                         <!--create search block elements with JS-->
@@ -101,14 +100,16 @@
         function queryUsersResults() {
             db.collection("users").orderBy('display_name').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    
+                    //console.log(doc.id, doc.data());
+                    createUserBlockResult(doc.data());
                 });
             });
         }
         function queryItemsResults() {
             db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    console.log(doc.data());
+                    //console.log(doc.data()); 
+                    createItemBlockResult(doc.id, doc.data());
                 });
             });
         }
@@ -123,6 +124,7 @@
             divElem.appendChild(pElemName);
             divElem.appendChild(pElemPrice);
             imgElem.setAttribute("SRC", data.img_src);
+            imgElem.setAttribute("WIDTH", 150+'px');        // to be edited with CSS; temporary here for testing
             pElemName.innerHTML = name;
             pElemPrice.innerHTML = '$' + data.price;
         }
