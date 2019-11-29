@@ -60,8 +60,8 @@
                 <div class="row">
                     <img class="profileImage col-6 col-lg-4 center" id="profilePhoto" src="bcit_logo.png" onclick="uploadProfilePhoto(this)">
                     <div class="container col-6">
-                        <h3><span class="name">Name</span>'s Short Bio</h3>
-                        <p class="name">Name</p>
+                        <h3><span class="name" id="shortBio"></span>
+                        <p class="name" id="displayName">Name</p>
                         <button class="btn followingStatus">You are viewing your wishlist</button>
                     </div>
                 </div>
@@ -88,8 +88,9 @@
                 <div class="form-inline">
                     <input type="radio">
                     <div class="row">
-                        <p class="item"><span class="itemName">Item Name</span>: $<span class="itemPrice">Item
-                                price</span></p>
+                            <span class="itemName">Item Name</span>: $<span class="itemPrice">Item
+                                price
+                            </span>
                     </div>
                 </div>
             </div>
@@ -98,10 +99,40 @@
 <script>
     let db = firebase.firestore();
     let queryStringURL = decodeURIComponent(window.location.search);
+    let tempVar = queryStringURL.split('?');
+    let uid = tempVar[1];
+    console.log(uid, typeof(uid));
+    //let userData;
+    //let storage = firebase.storage().ref;
     
-    function uploadProfilePhoto(imgSrc) {
-        
+    function getUserData() {
+        db.collection("users").doc(uid).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    console.log(doc.data());
+                    updateElements(doc.data());
+                } else {
+                // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
     }
+    getUserData();
+    function updateElements(userData) {
+        displayNameElem = document.getElementById("displayName");
+        displayNameElem.innerHTML = userData.display_name;
+        displayShortBioElem = document.getElementById("shortBio");
+        displayShortBioElem.innerHTML = userData.short_bio; //to be updated to db once user sets one
+        displayProfilePhoto = document.getElementById("profilePhoto");
+        displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
+        displayNameElem = document.getElementById("displayName");
+        displayNameElem.innerHTML = userData.display_name;
+    }
+    function uploadProfilePhoto(elem) {
+    }
+    
 </script>
 </body>
 </html>
