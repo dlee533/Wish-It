@@ -51,8 +51,8 @@
       <option selected value="users">User</option>
       <option value="items">Item</option>
     </select>
-    <input class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
-    <button type='submit' onclick="querySearch()" class='btn search-btn col-2'>Search</button>
+    <input id="queryText" class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
+    <button id="queryButton" type='submit' onclick="querySearch()" class='btn search-btn col-2'>Search</button>
   </div>
   </div>
 
@@ -384,8 +384,13 @@
     }
     myProfileDirect();
 
-    function searchQuery() {
-        let selection = document.getElementById("dropDownSelect");
+    function querySearch() {
+        let selection = document.getElementById("dropDownSelect").value;
+        let btn = document.getElementById("queryButton");
+        let query = document.getElementById("queryText").value;
+        btn.onclick = function() {
+            window.location.href = "searchResult.html?" + selection + '=' + query;
+        }
     }
     
     
