@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>searchResult.html</title>
+    <title>WishIt</title>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="firebaseConfig.js"></script>
@@ -93,23 +93,11 @@
         } else {
             queryItemsResults();
         }
-        db.collection("items").where("category", "==", "house products").limit(6).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-                                    //    console.log(doc.id, " => ", doc.data());
-            itemNameClassElemList[i].innerHTML = doc.id;
-            itemPriceClassElemList[i].innerHTML = doc.data().price
-            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-            itemIdNumberMap[doc.id] = doc.data().item_number;
-            i++;
-            });
-
-        });
 
         function queryUsersResults() {
-            db.collection("users").where("display_name", "like", "searchValue").get().then(function(querySnapshot) {
+            db.collection("users").where("display_name", "LIKE", searchValue[0]+"%"+"or%"+searchValue[1]).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    
+                    console.log(doc.id);
                 });
             });
         }
