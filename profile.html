@@ -58,18 +58,19 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <img class="profileImage col-6 col-lg-4 center" id="profilePhoto" src="bcit_logo.png" onclick="uploadProfilePhoto(this)">
+                    <img class="profileImage col-6 col-lg-4 center" id="profilePhoto" src="images/profile_pic.png"
+                        onclick="uploadProfilePhoto(this)">
                     <div class="container col-6">
                         <h3><span class="name" id="shortBio"></span>
-                        <p class="name" id="displayName">Name</p>
-                        <button class="btn followingStatus">You are viewing your wishlist</button>
+                            <p class="name" id="displayName">Name</p>
+                            <button class="btn followingStatus">You are viewing your wishlist</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--friends list-->
+    <!-- friends list
     <div class="container col-12 col-md-10">
         <h1 class="display-3">Friends list</h1>
         <div class='card col-6 col-md-4 col-lg-2'>
@@ -78,61 +79,69 @@
                 <p class='friendName'>Name</p>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- wishlist-->
     <div class="container col-12 col-md-10">
         <h1 class="display-3">Wish list</h1>
         <div class="card">
+            <!--clone this element with jquery and append to the end of closing div of class="card"-->
             <div class="card-body">
                 <div class="form-inline">
-                    <input type="radio">
+                    <input type="radio"><!-- initially set the raio button display to none-->
+                    <!--set the value to the item name/other identificaftion-->
                     <div class="row">
-                            <span class="itemName">Item Name</span>: $<span class="itemPrice">Item
-                                price
-                            </span>
+                        <span class="itemName">Item Name</span>: $<span class="itemPrice">Item
+                            price
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="btn submit right">Save</button>
-<script>
-    let db = firebase.firestore();
-    let queryStringURL = decodeURIComponent(window.location.search);
-    let tempVar = queryStringURL.split('?');
-    let uid = tempVar[1];
-    console.log(uid, typeof(uid));
-    //let userData;
-    //let storage = firebase.storage().ref;
-    
-    function getUserData() {
-        db.collection("users").doc(uid).get()
-            .then(function(doc) {
-                if (doc.exists) {
-                    console.log(doc.data());
-                    updateElements(doc.data());
-                } else {
-                // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
-    }
-    getUserData();
-    function updateElements(userData) {
-        displayNameElem = document.getElementById("displayName");
-        displayNameElem.innerHTML = userData.display_name;
-        displayShortBioElem = document.getElementById("shortBio");
-        displayShortBioElem.innerHTML = userData.short_bio; //to be updated to db once user sets one
-        displayProfilePhoto = document.getElementById("profilePhoto");
-        displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
-        displayNameElem = document.getElementById("displayName");
-        displayNameElem.innerHTML = userData.display_name;
-    }
-    function uploadProfilePhoto(elem) {
-    }
-    
-</script>
+        <button class="btn submit save">Save</button> <!--with js, set the display of this element to none until
+        'check off items' button clicked. -->
+        <buttton class="btn checkOffItems">Check off items</buttton> <!--onclick: set the display to none and
+        display the save button+display the radio button on item cards-->
+    </div>
+
+        <script>
+            let db = firebase.firestore();
+            let queryStringURL = decodeURIComponent(window.location.search);
+            let tempVar = queryStringURL.split('?');
+            let uid = tempVar[1];
+            console.log(uid, typeof (uid));
+            //let userData;
+            //let storage = firebase.storage().ref;
+
+            function getUserData() {
+                db.collection("users").doc(uid).get()
+                    .then(function (doc) {
+                        if (doc.exists) {
+                            console.log(doc.data());
+                            updateElements(doc.data());
+                        } else {
+                            // doc.data() will be undefined in this case
+                            console.log("No such document!");
+                        }
+                    }).catch(function (error) {
+                        console.log("Error getting document:", error);
+                    });
+            }
+            getUserData();
+            function updateElements(userData) {
+                displayNameElem = document.getElementById("displayName");
+                displayNameElem.innerHTML = userData.display_name;
+                displayShortBioElem = document.getElementById("shortBio");
+                displayShortBioElem.innerHTML = userData.short_bio; //to be updated to db once user sets one
+                displayProfilePhoto = document.getElementById("profilePhoto");
+                displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
+                displayNameElem = document.getElementById("displayName");
+                displayNameElem.innerHTML = userData.display_name;
+            }
+            function uploadProfilePhoto(elem) {
+            }
+
+        </script>
 </body>
+
 </html>
