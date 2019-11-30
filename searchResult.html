@@ -49,17 +49,15 @@
                 </div>
             </div>
         </nav>
-
-
         <!-- search bar-->
-        <div class='container'>
-            <div class="form-inline center col-12 col-sm-10 col-md-8 col-lg-6">
-                <select class="browser-default custom-select col-2 dropdownMenu">
-                    <option selected value="user">User</option>
-                    <option value="item">Item</option>
+        <div class='container'></div>
+            <div class="form-inline center col-12 col-md-10 col-lg-8">
+                <select class="browser-default custom-select col-2 dropdownMenu" id="dropDownSelect">
+                    <option selected value="users">User</option>
+                    <option value="items">Item</option>
                 </select>
-                <input class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
-                <button type='submit' class='btn search-btn col-2'>Search</button>
+                <input id="queryText" class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
+                <button id="queryButton" type='submit' onclick="querySearch()" class='btn search-btn col-2'>Search</button>
             </div>
         </div>
 
@@ -138,6 +136,15 @@
             imgElem.setAttribute("WIDTH", 150+'px');        // to be edited with CSS; temporary here for testing
             pElemName.innerHTML = name;
             pElemPrice.innerHTML = '$' + data.price;
+        }
+
+        function querySearch() {
+            let selection = document.getElementById("dropDownSelect").value;
+            //let btn = document.getElementById("queryButton");
+            let query = document.getElementById("queryText").value;
+            //btn.onclick = function() {
+            window.location.href = "searchResult.html?" + selection + '=' + query;
+            //}
         }
         
     </script>
