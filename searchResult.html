@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>searchResult.html</title>
+    <title>WishIt</title>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="firebaseConfig.js"></script>
@@ -67,9 +67,11 @@
         <div class="jumbotron">
             <div class="card col-12 col-lg-6">
                 <div class="card-body">
-                    <img src="#" alt="result">
                     <p class="result_info" id="resultInfoLabel">Results:</p>
-                    <p class="result_info" id="results"></p>
+                    <div class="result_list" id="results">
+                        <!--create search block elements with JS-->
+                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -82,36 +84,60 @@
         let tempVar = queryStringURL.split('?');
         let passedValue = tempVar[1];
         tempVar = passedValue.split('=');
-        let selectionType = tempVar[0].toLowerCase;
-        let searchValue = tempVar[1].toLowerCase;
+        let selectionType = tempVar[0].toLowerCase();
+        let searchValue = tempVar[1].toLowerCase();
+        console.log('HELLO', selectionType, typeof(selectionType), searchValue, typeof(searchValue));
 
-        if (selectionType === "users") {
+        if (String(selectionType) === "users") {
             queryUsersResults();
         } else {
             queryItemsResults();
         }
-        db.collection("items").where("category", "==", "house products").limit(6).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-                                    //    console.log(doc.id, " => ", doc.data());
-            itemNameClassElemList[i].innerHTML = doc.id;
-            itemPriceClassElemList[i].innerHTML = doc.data().price
-            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-            itemIdNumberMap[doc.id] = doc.data().item_number;
-            i++;
-            });
-
-        });
-
         function queryUsersResults() {
-            db.collection("users").where("display_name", "like", "searchValue").get().then(function(querySnapshot) {
+            db.collection("users").orderBy('display_name').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    
+                    //console.log(doc.id, doc.data());
+                    createUserBlockResults(doc.data());
                 });
             });
         }
+        function createUserBlockResults(data) {
+            divElem = document.createElement("DIV");
+            imgElem = document.createElement("IMG");
+            pElemName = document.createElement("P");
+            pElemBackground = document.createElement("P");
+            parentDiv = document.getElementById("results");
+            parentDiv.appendChild(divElem);
+            divElem.appendChild(imgElem);
+            divElem.appendChild(pElemName);
+            divElem.appendChild(pElemBackground);
+            imgElem.setAttribute("SRC", data.profile_photo);    //to be added on user's profile page and update to db
+            imgElem.setAttribute("WIDTH", 150+'px');        // to be edited with CSS; temporary here for testing
+            pElemName.innerHTML = data.display_name;
+            pElemBackground.innerHTML = "Vancouver, Canada";    //short bio (residence location, education background)
+        }
         function queryItemsResults() {
-
+            db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    //console.log(doc.data()); 
+                    createItemBlockResults(doc.id, doc.data());
+                });
+            });
+        }
+        function createItemBlockResults(name, data) {
+            divElem = document.createElement("DIV");
+            imgElem = document.createElement("IMG");
+            pElemName = document.createElement("P");
+            pElemPrice = document.createElement("P");
+            parentDiv = document.getElementById("results");
+            parentDiv.appendChild(divElem);
+            divElem.appendChild(imgElem);
+            divElem.appendChild(pElemName);
+            divElem.appendChild(pElemPrice);
+            imgElem.setAttribute("SRC", data.img_src);
+            imgElem.setAttribute("WIDTH", 150+'px');        // to be edited with CSS; temporary here for testing
+            pElemName.innerHTML = name;
+            pElemPrice.innerHTML = '$' + data.price;
         }
         
     </script>

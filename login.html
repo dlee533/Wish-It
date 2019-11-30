@@ -55,22 +55,22 @@
       // or whether we leave that to developer to handle.
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
-          db.collection("users").doc(user.uid).add({
+          db.collection("users").doc(user.uid).set({
               name: user.displayName,
               email: user.email
           })
-          .then(function() {
-              console.log("new user added successfully");
+          .then(function () {
+              window.location.assign('main.html');
           })
-          .catch(function() {
-              console.log("error adding new user");
+          .catch(function(error) {
+              console.log("something bad happened");
           });
         }
-        else
+        else 
         {
             return true;
         }
-      return false;
+        return false
     },
     uiShown: function() {
       // The widget is rendered.
@@ -84,25 +84,28 @@
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
   ],
   // Terms of service url.
   tosUrl: '<your-tos-url>',
   // Privacy policy url.
   privacyPolicyUrl: '<your-privacy-policy-url>'
 };
-// The start method will wait until the DOM is loaded.
-ui.start('#firebaseui-auth-container', uiConfig);
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    localStorage.setItem('userId', user.uid);
-    console.log(user.email);
-    
     // User is signed in.
+    var displayName = user.displayName;
+    var email = user.email;
+    var uid = user.uid;
+    // ...
   } else {
-    // No user is signed in.
+    // User is signed out.
+    // ...
   }
 });
+// The start method will wait until the DOM is loaded.
+ui.start('#firebaseui-auth-container', uiConfig);
     </script>
 
 </head>
