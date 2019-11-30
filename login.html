@@ -56,8 +56,10 @@
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
           db.collection("users").doc(user.uid).set({
-              name: user.displayName,
-              email: user.email
+              display_name: user.displayName,
+              email: user.email,
+              short_bio: "Vancouver, BC, Canada",
+              profile_photo: "https://firebasestorage.googleapis.com/v0/b/fir-f9d7a.appspot.com/o/Profile%20Photos%2Fdefault_profile_pic.jpeg?alt=media&token=804f3b39-a54e-4044-bb89-7948e994bc98"
           })
           .then(function () {
               window.location.assign('main.html');
