@@ -68,3 +68,11 @@ h1{
     background-color: #FFF1CE;
     border: 1px solid #D1C346;
 }
+.responsive{
+    width: 100%;
+    height: auto;
+}
+.followingStatus{
+    width: 100px;
+    height: 40px;
+}
