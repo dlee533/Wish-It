@@ -19,13 +19,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link rel='stylesheet' type='text/css' href="style.css">
 
     <link rel='stylesheet' type='text/css' href="mainCSS.css">
 
 </head>
 
 <body>
+
     <body>
         <!-- header -->
         <nav class="navbar navbar-expand-lg navbar-dark">
@@ -41,22 +41,43 @@
                             <a class="nav-link" href="#">My Profile</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link log">Log-in</a>
-                            <!--change the text when the user signs in -->
+                            <a class="nav-link" href="#">Friends List</a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link log">Sign out</a>
                     </ul>
                 </div>
             </div>
         </nav><br>
 
-        <!-- search result-->
+        <!-- friends request -->
         <div class="jumbotron">
-            <div class="card col-6 col-lg-4"> <!--clone this level when adding more friends-->
+            <h1 class="display-3">Friends Request</h1>
+            <div class="card col-6 col-lg-4">
+                <!--clone this level when adding more friends-->
                 <div class="card-body">
                     <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
-                    <p class="friend_name">Name:</p> <!--replace this with actual name-->
+                    <p class="friend_name">Name:</p>
+                    <!--replace this with actual name-->
+                    <button class="btn acceptRequest">Accept</button>
                 </div>
             </div>
+        </div>
+
+        <!-- friends list -->
+        <div class="jumbotron">
+            <h1 class="display-3">Friends List</h1>
+            <a class="friendsProfile" href="#">
+                <!--href to profile with friends info-->
+                <div class="card col-6 col-lg-4">
+                    <!--clone this level when adding more friends-->
+                    <div class="card-body">
+                        <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
+                        <p class="friend_name">Name:</p>
+                        <!--replace this with actual name-->
+                    </div>
+                </div>
+            </a>
         </div>
     </body>
 </html>

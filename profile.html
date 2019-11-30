@@ -40,6 +40,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Friends</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Sign out</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -62,8 +65,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <img class="profileImage col-6 col-lg-4 center responsive" id="profilePhoto" src="images/profile_pic.png"
-                        onclick="uploadProfilePhoto(this)">
+                    <img class="profileImage col-6 col-lg-4 center responsive" id="profilePhoto"
+                        src="images/profile_pic.png" onclick="uploadProfilePhoto(this)">
                     <div class="container col-6">
                         <h3><span class="name" id="shortBio"></span>
                             <p class="name" id="displayName">Name</p>
@@ -73,17 +76,6 @@
             </div>
         </div>
     </div>
-
-    <!-- friends list
-    <div class="container col-12 col-md-10">
-        <h1 class="display-3">Friends list</h1>
-        <div class='card col-6 col-md-4 col-lg-2'>
-            <div class='card-body'>
-                <img class='friendPic' src='#'>
-                <p class='friendName'>Name</p>
-            </div>
-        </div>
-    </div> -->
 
     <!-- wishlist-->
     <div class="container col-12 col-md-10">
@@ -102,48 +94,50 @@
                 </div>
             </div>
         </div>
-        <button class="btn submit save">Save</button> <!--with js, set the display of this element to none until
+        <button class="btn submit save">Save</button>
+        <!--with js, set the display of this element to none until
         'check off items' button clicked. -->
-        <buttton class="btn checkOffItems">Check off items</buttton> <!--onclick: set the display to none and
+        <buttton class="btn checkOffItems">Check off items</buttton>
+        <!--onclick: set the display to none and
         display the save button+display the radio button on item cards-->
     </div>
 
-        <script>
-            let db = firebase.firestore();
-            let queryStringURL = decodeURIComponent(window.location.search);
-            let tempVar = queryStringURL.split('?');
-            let uid = tempVar[1];
-            console.log(uid, typeof (uid));
-            //let userData;
-            //let storage = firebase.storage().ref;
+    <script>
+        let db = firebase.firestore();
+        let queryStringURL = decodeURIComponent(window.location.search);
+        let tempVar = queryStringURL.split('?');
+        let uid = tempVar[1];
+        console.log(uid, typeof (uid));
+        //let userData;
+        //let storage = firebase.storage().ref;
 
-            function getUserData() {
-                db.collection("users").doc(uid).get()
-                    .then(function (doc) {
-                        if (doc.exists) {
-                            console.log(doc.data());
-                            updateElements(doc.data());
-                        } else {
-                            // doc.data() will be undefined in this case
-                            console.log("No such document!");
-                        }
-                    }).catch(function (error) {
-                        console.log("Error getting document:", error);
-                    });
-            }
-            getUserData();
-            function updateElements(userData) {
-                displayNameElem = document.getElementById("displayName");
-                displayNameElem.innerHTML = userData.display_name;
-                displayShortBioElem = document.getElementById("shortBio");
-                displayShortBioElem.innerHTML = userData.short_bio; //to be updated to db once user sets one
-                displayProfilePhoto = document.getElementById("profilePhoto");
-                displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
-                displayNameElem = document.getElementById("displayName");
-                displayNameElem.innerHTML = userData.display_name;
-            }
-            function uploadProfilePhoto(elem) {
-            }
+        function getUserData() {
+            db.collection("users").doc(uid).get()
+                .then(function (doc) {
+                    if (doc.exists) {
+                        console.log(doc.data());
+                        updateElements(doc.data());
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                }).catch(function (error) {
+                    console.log("Error getting document:", error);
+                });
+        }
+        getUserData();
+        function updateElements(userData) {
+            displayNameElem = document.getElementById("displayName");
+            displayNameElem.innerHTML = userData.display_name;
+            displayShortBioElem = document.getElementById("shortBio");
+            displayShortBioElem.innerHTML = userData.short_bio; //to be updated to db once user sets one
+            displayProfilePhoto = document.getElementById("profilePhoto");
+            displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
+            displayNameElem = document.getElementById("displayName");
+            displayNameElem.innerHTML = userData.display_name;
+        }
+        function uploadProfilePhoto(elem) {
+        }
 
             function querySearch() {
                 let selection = document.getElementById("dropDownSelect").value;
