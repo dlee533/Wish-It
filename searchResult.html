@@ -62,19 +62,6 @@
         </div>
     </nav>
 
-
-    <!-- search bar-->
-    <div class='container'>
-        <div class="form-inline center col-12 col-sm-10 col-md-8 col-lg-6">
-            <select class="browser-default custom-select col-2 dropdownMenu">
-                <option selected value="user">User</option>
-                <option value="item">Item</option>
-            </select>
-            <input class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
-            <button type='submit' class='btn search-btn col-2'>Search</button>
-        </div>
-    </div>
-
     <!-- search result-->
     <div class="jumbotron">
         <div class="card col-12 col-lg-6">
@@ -97,7 +84,7 @@
         let passedValue = tempVar[1];
         tempVar = passedValue.split('=');
         let selectionType = String(tempVar[0].toLowerCase());
-        let searchValue = String(tempVar[1].toLowerCase());
+        let searchValue = String(tempVar[1].toUpperCase());
         console.log('HELLO', selectionType, typeof(selectionType), searchValue, typeof(searchValue));
 
         if (selectionType === "users") {
