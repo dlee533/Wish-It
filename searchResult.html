@@ -77,30 +77,33 @@
 
     </body>
     <script>
-        console.log("test ver 1.0");
+        console.log("test ver 1.01");
         let db = firebase.firestore();
         let queryStringURL = decodeURIComponent(window.location.search);
         let tempVar = queryStringURL.split('?');
         let passedValue = tempVar[1];
         tempVar = passedValue.split('=');
-        let selectionType = tempVar[0].toLowerCase();
-        let searchValue = tempVar[1].toLowerCase();
+        let selectionType = String(tempVar[0].toLowerCase());
+        let searchValue = String(tempVar[1].toLowerCase());
         console.log('HELLO', selectionType, typeof(selectionType), searchValue, typeof(searchValue));
 
-        if (String(selectionType) === "users") {
+        if (selectionType === "users") {
+            console.log("here1");
             queryUsersResults();
         } else {
             queryItemsResults();
         }
         function queryUsersResults() {
-            db.collection("users").orderBy('name').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
+            console.log("here2");
+            db.collection("users").orderBy("name").startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    //console.log(doc.id, doc.data());
+                    console.log(doc.id, doc.data());
                     createUserBlockResults(doc.data());
                 });
             });
         }
         function createUserBlockResults(data) {
+            console.log("here3");
             divElem = document.createElement("DIV");
             imgElem = document.createElement("IMG");
             pElemName = document.createElement("P");
@@ -118,7 +121,7 @@
         function queryItemsResults() {
             db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    //console.log(doc.data()); 
+                    console.log(doc.data()); 
                     createItemBlockResults(doc.id, doc.data());
                 });
             });
