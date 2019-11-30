@@ -57,6 +57,7 @@
       if (authResult.additionalUserInfo.isNewUser) {
           db.collection("users").doc(user.uid).set({
               display_name: user.displayName,
+              name: user.displayName,
               email: user.email,
               short_bio: "Vancouver, BC, Canada",
               profile_photo: "https://firebasestorage.googleapis.com/v0/b/fir-f9d7a.appspot.com/o/Profile%20Photos%2Fdefault_profile_pic.jpeg?alt=media&token=804f3b39-a54e-4044-bb89-7948e994bc98"
@@ -97,7 +98,8 @@
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
-    var displayName = user.displayName;
+    var display_name = user.displayName;
+    var name = user.displayName;
     var email = user.email;
     var uid = user.uid;
     // ...
