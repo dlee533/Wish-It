@@ -9,6 +9,9 @@
 
   <title>index.html</title>
 
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+  <script src="firebaseConfig.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -291,6 +294,111 @@
         </div>
       </div>
     </div>
+    <script>
+        var db = firebase.firestore();
+        let itemIdNumberMap;    // to be used for onclick events of individual items (write to db for adding into the user's wishlist)
+    
+        function readAllItems() {
+            let itemNamesList = [];
+            let priceList = [];
+            let imgSrcList = [];
+            let itemIdList = [];
+            //db.collection("items").get().then(function(querySnapshot) {
+            //    querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+                    //console.log(doc.id, " => ", doc.data());
+                    
+            //    });
+            //});
+    
+            //store elements with same class name as list
+            let itemNameClassElemList = document.getElementsByClassName("itemNmae");
+            let itemPriceClassElemList = document.getElementsByClassName("itemPrice");
+            let itemImageClassElemList = document.getElementsByClassName("itemImage");
+            let i = 0;
+    
+            db.collection("items").where("category", "==", "tech").limit(6).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+                                        //    console.log(doc.id, " => ", doc.data());
+                itemNameClassElemList[i].innerHTML = doc.id;
+                itemPriceClassElemList[i].innerHTML = doc.data().price
+                itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+                itemIdNumberMap = doc.data();
+                i++;
+                });
+    
+            });
+            db.collection("items").where("category", "==", "clothing and shoes").limit(6).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+                                        //    console.log(doc.id, " => ", doc.data());
+                itemNameClassElemList[i].innerHTML = doc.id;
+                itemPriceClassElemList[i].innerHTML = doc.data().price
+                itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+                itemIdNumberMap[doc.id] = doc.data().item_number;
+                i++;
+                });
+    
+            });
+            db.collection("items").where("category", "==", "office equipment").limit(6).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+                                        //    console.log(doc.id, " => ", doc.data());
+                itemNameClassElemList[i].innerHTML = doc.id;
+                itemPriceClassElemList[i].innerHTML = doc.data().price
+                itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+                itemIdNumberMap[doc.id] = doc.data().item_number;
+                i++;
+                });
+    
+            });
+            db.collection("items").where("category", "==", "sports equipment").limit(6).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+                                        //    console.log(doc.id, " => ", doc.data());
+                itemNameClassElemList[i].innerHTML = doc.id;
+                itemPriceClassElemList[i].innerHTML = doc.data().price
+                itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+                itemIdNumberMap[doc.id] = doc.data().item_number;
+                i++;
+                });
+    
+            });
+            db.collection("items").where("category", "==", "house products").limit(6).get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+                                        //    console.log(doc.id, " => ", doc.data());
+                itemNameClassElemList[i].innerHTML = doc.id;
+                itemPriceClassElemList[i].innerHTML = doc.data().price
+                itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+                itemIdNumberMap[doc.id] = doc.data().item_number;
+                i++;
+                });
+    
+            });
+        }
+        readAllItems();
+    
+        function myProfileDirect() {
+            let my_profile = document.getElementById("myProfile");
+            my_profile.onclick = function() {
+                window.location.href = "profile.html?" + localStorage.getItem('userId');
+            };
+        }
+        myProfileDirect();
+    
+        function querySearch() {
+            let selection = document.getElementById("dropDownSelect").value;
+            //let btn = document.getElementById("queryButton");
+            let query = document.getElementById("queryText").value;
+            //btn.onclick = function() {
+            window.location.href = "searchResult.html?" + selection + '=' + query;
+            //}
+        }
+        
+        
+    </script>
 </body>
 
 </html>
