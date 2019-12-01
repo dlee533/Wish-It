@@ -159,17 +159,6 @@
 
 
         //wishlist
-
-        let airpods = db.collection("items").doc("airpods").get().then(function (doc) {
-            console.log(doc.data()["price"]);
-        }).catch(function () {
-            console.log("There was an error.");
-        });
-        // let itemData = airpods.data();
-        // console.log(itemData);
-        // let itemPrice = itemData["price"];
-        // console.log(itemPrice);
-
         function readWishlist() {
             db.collection("users").doc(uid).collection("wishlist").get()
                 .then(function (querySnapshot) {
