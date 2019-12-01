@@ -313,7 +313,9 @@
         let itemNameClassElemList = document.getElementsByClassName("itemNmae");
         let itemPriceClassElemList = document.getElementsByClassName("itemPrice");
         let itemImageClassElemList = document.getElementsByClassName("itemImage");
-        let userWishListRef = db.collection("users").doc(localStorage.getItem('userId')).collection("wishlist");
+        let uid = localStorage.getItem('userId');
+        let userWishListRef = db.collection("users").doc(uid).collection("wishlist");
+        console.log(uid, typeof(uid), userWishListRef);
         let i = 0;
 
 
@@ -321,12 +323,12 @@
             querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
                                     //    console.log(doc.id, " => ", doc.data());
-            let item_name = doc.id;
+            let item_name = String(doc.id);
             itemNameClassElemList[i].innerHTML = doc.id;
             itemPriceClassElemList[i].innerHTML = doc.data().price
             itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
             itemAddItemClassElemList[i].onclick = function() {
-                userWishListRef.item_name.add({
+                userWishListRef.doc(item_name).set({
                     itemRef: db.doc("items/" + doc.id)
                 });
             }
@@ -342,6 +344,11 @@
             itemNameClassElemList[i].innerHTML = doc.id;
             itemPriceClassElemList[i].innerHTML = doc.data().price
             itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemAddItemClassElemList[i].onclick = function() {
+                userWishListRef.doc(item_name).set({
+                    itemRef: db.doc("items/" + doc.id)
+                });
+            }
             itemIdNumberMap[doc.id] = doc.data().item_number;
             i++;
             });
@@ -354,6 +361,11 @@
             itemNameClassElemList[i].innerHTML = doc.id;
             itemPriceClassElemList[i].innerHTML = doc.data().price
             itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemAddItemClassElemList[i].onclick = function() {
+                userWishListRef.doc(item_name).set({
+                    itemRef: db.doc("items/" + doc.id)
+                });
+            }
             itemIdNumberMap[doc.id] = doc.data().item_number;
             i++;
             });
@@ -366,6 +378,11 @@
             itemNameClassElemList[i].innerHTML = doc.id;
             itemPriceClassElemList[i].innerHTML = doc.data().price
             itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemAddItemClassElemList[i].onclick = function() {
+                userWishListRef.doc(item_name).set({
+                    itemRef: db.doc("items/" + doc.id)
+                });
+            }
             itemIdNumberMap[doc.id] = doc.data().item_number;
             i++;
             });
@@ -378,6 +395,11 @@
             itemNameClassElemList[i].innerHTML = doc.id;
             itemPriceClassElemList[i].innerHTML = doc.data().price
             itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemAddItemClassElemList[i].onclick = function() {
+                userWishListRef.doc(item_name).set({
+                    itemRef: db.doc("items/" + doc.id)
+                });
+            }
             itemIdNumberMap[doc.id] = doc.data().item_number;
             i++;
             });
