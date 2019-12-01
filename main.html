@@ -295,9 +295,8 @@
 
   <script>
     var db = firebase.firestore();
-    console.log("ver 1.021");
+    console.log("ver 1.022");
     let itemIdNumberMap;    // to be used for onclick events of individual items (write to db for adding into the user's wishlist)
-
     function readAllItems() {
       let itemNamesList = [];
       let priceList = [];
@@ -307,31 +306,28 @@
       //    querySnapshot.forEach(function(doc) {
       // doc.data() is never undefined for query doc snapshots
       //console.log(doc.id, " => ", doc.data());
-
       //store elements with same class name as list
       let itemAddItemClassElemList = document.getElementsByClassName("addItem");
       let itemNameClassElemList = document.getElementsByClassName("itemNmae");
       let itemPriceClassElemList = document.getElementsByClassName("itemPrice");
       let itemImageClassElemList = document.getElementsByClassName("itemImage");
-      let userWishListRef = db.collection("users").doc(localStorage.getItem('userId')).collection("wishlist");
+      let uid = localStorage.getItem('userId');
+      let userWishListRef = db.collection("users").doc(uid).collection("wishlist");
       let i = 0;
-
-
-
       db.collection("items").where("category", "==", "tech").limit(6).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
-          let item_name = doc.id;
+          let item_name = String(doc.id);
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
           itemAddItemClassElemList[i].onclick = function () {
-            userWishListRef.item_name.add({
-              itemRef: db.doc("items/" + doc.id)
+            userWishListRef.doc(item_name).set({
+              itemRef: db.doc("items/" + item_name)
             });
           }
-          itemIdNumberMap = doc.data();
+
           i++;
         });
       });
@@ -342,10 +338,14 @@
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-          itemIdNumberMap[doc.id] = doc.data().item_number;
+          itemAddItemClassElemList[i].onclick = function () {
+            userWishListRef.doc(item_name).set({
+              itemRef: db.doc("items/" + item_name)
+            });
+          }
+
           i++;
         });
-
       });
       db.collection("items").where("category", "==", "office equipment").limit(6).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -354,10 +354,14 @@
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-          itemIdNumberMap[doc.id] = doc.data().item_number;
+          itemAddItemClassElemList[i].onclick = function () {
+            userWishListRef.doc(item_name).set({
+              itemRef: db.doc("items/" + item_name)
+            });
+          }
+
           i++;
         });
-
       });
       db.collection("items").where("category", "==", "sports equipment").limit(6).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -366,10 +370,14 @@
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-          itemIdNumberMap[doc.id] = doc.data().item_number;
+          itemAddItemClassElemList[i].onclick = function () {
+            userWishListRef.doc(item_name).set({
+              itemRef: db.doc("items/" + item_name)
+            });
+          }
+
           i++;
         });
-
       });
       db.collection("items").where("category", "==", "house products").limit(6).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -378,14 +386,17 @@
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-          itemIdNumberMap[doc.id] = doc.data().item_number;
+          itemAddItemClassElemList[i].onclick = function () {
+            userWishListRef.doc(item_name).set({
+              itemRef: db.doc("items/" + item_name)
+            });
+          }
+   
           i++;
         });
-
       });
     }
     readAllItems();
-
     function myProfileDirect() {
       let my_profile = document.getElementById("myProfile");
       my_profile.onclick = function () {
@@ -393,7 +404,6 @@
       };
     }
     myProfileDirect();
-
     function querySearch() {
       let selection = document.getElementById("dropDownSelect").value;
       //let btn = document.getElementById("queryButton");
@@ -402,11 +412,8 @@
       window.location.href = "searchResult.html?" + selection + '=' + query;
       //}
     }
-
     function addOnClickItemToWishList() {
     }
-
-
   </script>
 </body>
 
