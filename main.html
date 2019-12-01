@@ -340,7 +340,7 @@
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
           itemAddItemClassElemList[i].onclick = function () {
             userWishListRef.doc(item_name).set({
-              itemRef: db.doc(db.collection("items").doc(item_name))
+              itemRef: db.doc("items/" + item_name)
             });
           }
 
@@ -356,7 +356,7 @@
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
           itemAddItemClassElemList[i].onclick = function () {
             userWishListRef.doc(item_name).set({
-              itemRef: db.doc(db.collection("items").doc(item_name))
+              itemRef: db.doc("items/" + item_name)
             });
           }
 
@@ -372,7 +372,7 @@
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
           itemAddItemClassElemList[i].onclick = function () {
             userWishListRef.doc(item_name).set({
-              itemRef: db.doc(db.collection("items").doc(item_name))
+              itemRef: db.doc("items/" + item_name)
             });
           }
 
@@ -388,7 +388,7 @@
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
           itemAddItemClassElemList[i].onclick = function () {
             userWishListRef.doc(item_name).set({
-              itemRef: db.doc(db.collection("items").doc(item_name))
+              itemRef: db.doc("items/" + item_name)
             });
           }
    
