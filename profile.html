@@ -148,7 +148,7 @@
             window.location.href = "searchResult.html?" + selection + '=' + query;
             //}
         }
-
+        console.log(user.uid, localStorage.getItem('userId'));
         function myProfileDirect() {
             let my_profile = document.getElementById("myProfile");
             my_profile.onclick = function () {
