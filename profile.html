@@ -82,23 +82,24 @@
     <div class="container col-12 col-md-10" id="start">
         <h1 class="display-3 wishList">Wish list</h1>
         <div class="cardContainer">
-        <div class="card itemCard" value="notFilled">
-            <!--clone this element with jquery and append to the end of closing div of class="card"-->
-            <div class="card-body">
-                <div class="form-inline">
-                    <input type="radio" class="itemRadio" style="display:none;"><!-- initially set the raio button display to none-->
-                    <!--set the value to the item name/other identificaftion-->
-                    <div class="row">
-                        <span class="itemName">Item Name</span>: $<span class="itemPrice">Item price</span>
+            <div class="card itemCard" value="notFilled">
+                <!--clone this element with jquery and append to the end of closing div of class="card"-->
+                <div class="card-body">
+                    <div class="form-inline">
+                        <input type="radio" class="itemRadio" style="visibility:hidden;">
+                        <!-- initially set the raio button display to none-->
+                        <!--set the value to the item name/other identificaftion-->
+                        <div class="row">
+                            <span class="itemName">Item Name</span>: $<span class="itemPrice">Item price</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
-        <button class="btn submit save" style="display:none;">Save</button>
+        <button class="btn submit" id="save" style="display:none;">Save</button>
         <!--with js, set the display of this element to none until
         'check off items' button clicked. -->
-        <buttton class="btn checkOffItems">Check off items</buttton>
+        <buttton class="btn" id="checkOffItems">Check off items</buttton>
         <!--onclick: set the display to none and
         display the save button+display the radio button on item cards-->
     </div>
@@ -200,17 +201,24 @@
 
 
         //hide buttons
-        function checkOnclickHandler(){
-                //hide the checkOffItems btn
-                //display radio btn + save btn
-            
+        function checkOnclickHandler() {
+            //hide the checkOffItems btn
+            document.getElementById("checkOffItems").style.display = "none";
+            //display radio btn + save btn
+            document.getElementById("save").style.display = "block";
+            let items = document.querySelectorAll(".itemRadio");
+            console.log(items);
+            items.forEach(function(item){
+                item.style.cssText = "visibility:visible";
+            });
         }
-        function saveOnclickHandler(){
-                //get the value of items in an array : jquery?
-                //hide save btn +radio btn
-                //change the css of the items with value inside the jquery, or possibly delete them from database altogether
-                //display the checkOffItems btn         
+        function saveOnclickHandler() {
+            //get the value of items in an array : jquery?
+            //hide save btn +radio btn
+            //change the css of the items with value inside the jquery, or possibly delete them from database altogether
+            //display the checkOffItems btn         
         }
+        document.getElementById("checkOffItems").onclick = checkOnclickHandler;
     </script>
 </body>
 
