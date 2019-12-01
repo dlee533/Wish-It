@@ -295,7 +295,7 @@
 
   <script>
     var db = firebase.firestore();
-    console.log("ver 1.021");
+    console.log("ver 1.022");
     let itemIdNumberMap;    // to be used for onclick events of individual items (write to db for adding into the user's wishlist)
     function readAllItems() {
       let itemNamesList = [];
@@ -322,8 +322,8 @@
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
           itemAddItemClassElemList[i].onclick = function () {
-            userWishListRef.item_name.add({
-              itemRef: db.doc("items/" + doc.id)
+            userWishListRef.doc(item_name).add({
+              itemRef: db.doc(db.collection("items").doc(item_name))
             });
           }
           itemIdNumberMap = doc.data();
@@ -337,6 +337,11 @@
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemAddItemClassElemList[i].onclick = function () {
+            userWishListRef.doc(item_name).add({
+              itemRef: db.doc(db.collection("items").doc(item_name))
+            });
+          }
           itemIdNumberMap[doc.id] = doc.data().item_number;
           i++;
         });
@@ -348,6 +353,11 @@
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemAddItemClassElemList[i].onclick = function () {
+            userWishListRef.doc(item_name).add({
+              itemRef: db.doc(db.collection("items").doc(item_name))
+            });
+          }
           itemIdNumberMap[doc.id] = doc.data().item_number;
           i++;
         });
@@ -359,6 +369,11 @@
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemAddItemClassElemList[i].onclick = function () {
+            userWishListRef.doc(item_name).add({
+              itemRef: db.doc(db.collection("items").doc(item_name))
+            });
+          }
           itemIdNumberMap[doc.id] = doc.data().item_number;
           i++;
         });
@@ -370,6 +385,11 @@
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemAddItemClassElemList[i].onclick = function () {
+            userWishListRef.doc(item_name).add({
+              itemRef: db.doc(db.collection("items").doc(item_name))
+            });
+          }
           itemIdNumberMap[doc.id] = doc.data().item_number;
           i++;
         });
