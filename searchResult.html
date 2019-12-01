@@ -51,28 +51,29 @@
         </nav>
         <!-- search bar-->
         <div class='container'></div>
-            <div class="form-inline center col-12 col-md-10 col-lg-8">
-                <select class="browser-default custom-select col-2 dropdownMenu" id="dropDownSelect">
-                    <option selected value="users">User</option>
-                    <option value="items">Item</option>
-                </select>
-                <input id="queryText" class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
-                <button id="queryButton" type='submit' onclick="querySearch()" class='btn search-btn col-2'>Search</button>
-            </div>
+        <div class="form-inline center col-12 col-md-10 col-lg-8">
+            <select class="browser-default custom-select col-2 dropdownMenu" id="dropDownSelect">
+                <option selected value="users">User</option>
+                <option value="items">Item</option>
+            </select>
+            <input id="queryText" class="form-control col-8 search-bar" type="text" placeholder="Search"
+                aria-label="Search">
+            <button id="queryButton" type='submit' onclick="querySearch()" class='btn search-btn col-2'>Search</button>
         </div>
-    </nav>
+        </div>
+        </nav>
 
-    <!-- search result-->
-    <div class="jumbotron">
-        <div class="card col-12 col-lg-6">
-            <div class="card-body">
-                <p class="result_info" id="resultInfoLabel">Results:</p>
-                <div class="result_list" id="results">
-                    <!--create search block elements with JS-->
+        <!-- search result-->
+        <div class="jumbotron">
+            <div class="card col-12 col-lg-6">
+                <div class="card-body">
+                    <p class="result_info" id="resultInfoLabel">Results:</p>
+                    <div class="result_list" id="results">
+                        <!--create search block elements with JS-->
 
+                    </div>
                 </div>
             </div>
-        </div>
 
 
     </body>
@@ -85,7 +86,7 @@
         tempVar = passedValue.split('=');
         let selectionType = String(tempVar[0].toLowerCase());
         let searchValue = String(tempVar[1].toUpperCase());
-        console.log('HELLO', selectionType, typeof(selectionType), searchValue, typeof(searchValue));
+        console.log('HELLO', selectionType, typeof (selectionType), searchValue, typeof (searchValue));
 
         if (selectionType === "users") {
             console.log("here1");
@@ -95,8 +96,8 @@
         }
         function queryUsersResults() {
             console.log("here2");
-            db.collection("users").orderBy("name").startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
+            db.collection("users").orderBy("name").startAt(searchValue).endAt(searchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
                     console.log(doc.id, doc.data());
                     createUserBlockResults(doc.data());
                 });
@@ -114,14 +115,14 @@
             divElem.appendChild(pElemName);
             divElem.appendChild(pElemBackground);
             imgElem.setAttribute("SRC", data.profile_photo);    //to be added on user's profile page and update to db
-            imgElem.setAttribute("WIDTH", 150+'px');        // to be edited with CSS; temporary here for testing
+            imgElem.setAttribute("WIDTH", 150 + 'px');        // to be edited with CSS; temporary here for testing
             pElemName.innerHTML = data.name;
             pElemBackground.innerHTML = "Vancouver, Canada";    //short bio (residence location, education background)
         }
         function queryItemsResults() {
-            db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue+'\uf8ff').limit(10).get().then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    console.log(doc.data()); 
+            db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    console.log(doc.data());
                     createItemBlockResults(doc.id, doc.data());
                 });
             });
@@ -137,7 +138,7 @@
             divElem.appendChild(pElemName);
             divElem.appendChild(pElemPrice);
             imgElem.setAttribute("SRC", data.img_src);
-            imgElem.setAttribute("WIDTH", 150+'px');        // to be edited with CSS; temporary here for testing
+            imgElem.setAttribute("WIDTH", 150 + 'px');        // to be edited with CSS; temporary here for testing
             pElemName.innerHTML = name;
             pElemPrice.innerHTML = '$' + data.price;
         }
@@ -153,12 +154,12 @@
 
         function myProfileDirect() {
             let my_profile = document.getElementById("myProfile");
-            my_profile.onclick = function() {
+            my_profile.onclick = function () {
                 window.location.href = "profile.html?" + localStorage.getItem('userId');
             };
-            }
+        }
         myProfileDirect();
-        
+
     </script>
 
 </html>

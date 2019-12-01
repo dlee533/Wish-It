@@ -8,11 +8,11 @@
   <meta name="author" content="">
 
   <title>WishIt Home</title>
-      <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
 
-<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
-<script src="firebaseConfig.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+  <script src="firebaseConfig.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -36,6 +36,9 @@
             <a class="nav-link" id="myProfile">My Profile</a>
           </li>
           <li class="nav-item active">
+            <a class="nav-link" id="myProfile">Friends</a>
+          </li>
+          <li class="nav-item active">
             <a class="nav-link log" href="index.html">Sign out</a>
             <!--change the text when the user signs in -->
           </li>
@@ -57,192 +60,192 @@
   </div>
 
   <!--Item display-->
-<div id="display">
-  <div class='jumbotron'>
-    <h1 class='display-3'>Technology</h1>
-    <div class='row'>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+  <div id="display">
+    <div class='jumbotron'>
+      <h1 class='display-3'>Technology</h1>
+      <div class='row'>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class='jumbotron'>
-    <h1 class='display-3'>Clothing</h1>
-    <div class='row'>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
-        </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
-        </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
-        </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
-        </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class='jumbotron'>
-    <h1 class='display-3'>Office</h1>
-    <div class='row'>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+    <div class='jumbotron'>
+      <h1 class='display-3'>Clothing</h1>
+      <div class='row'>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class='jumbotron'>
-    <h1 class='display-3'>Sports</h1>
-    <div class='row'>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+    <div class='jumbotron'>
+      <h1 class='display-3'>Office</h1>
+      <div class='row'>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
-      </div>
-      <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
-        <div class='card-body'>
-          <img class='itemImage' src='bcit_logo.png'>
-          <p class='itemNmae'>Name</p>
-          <p class='itemPrice'>Price</p>
-          <button class="addItem">Add to wishlist</button>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class='jumbotron'>
+    <div class='jumbotron'>
+      <h1 class='display-3'>Sports</h1>
+      <div class='row'>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
+        </div>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
+        </div>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
+        </div>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
+        </div>
+        <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
+          <div class='card-body'>
+            <img class='itemImage' src='bcit_logo.png'>
+            <p class='itemNmae'>Name</p>
+            <p class='itemPrice'>Price</p>
+            <button class="addItem">Add to wishlist</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='jumbotron'>
       <h1 class='display-3'>House products</h1>
       <div class='row'>
         <div class='card col-6 col-sm-4 col-md-3 col-lg-2'>
@@ -287,123 +290,123 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
 
 
-<script>
+  <script>
     var db = firebase.firestore();
     let itemIdNumberMap;    // to be used for onclick events of individual items (write to db for adding into the user's wishlist)
 
     function readAllItems() {
-        let itemNamesList = [];
-        let priceList = [];
-        let imgSrcList = [];
-        let itemIdList = [];
-        //db.collection("items").get().then(function(querySnapshot) {
-        //    querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-                //console.log(doc.id, " => ", doc.data());
-                
-        //    });
-        //});
+      let itemNamesList = [];
+      let priceList = [];
+      let imgSrcList = [];
+      let itemIdList = [];
+      //db.collection("items").get().then(function(querySnapshot) {
+      //    querySnapshot.forEach(function(doc) {
+      // doc.data() is never undefined for query doc snapshots
+      //console.log(doc.id, " => ", doc.data());
 
-        //store elements with same class name as list
-        let itemAddItemClassElemList = document.getElementsByClassName("addItem");
-        let itemNameClassElemList = document.getElementsByClassName("itemNmae");
-        let itemPriceClassElemList = document.getElementsByClassName("itemPrice");
-        let itemImageClassElemList = document.getElementsByClassName("itemImage");
-        //let userWishListRef = db.collection("users").doc(localStorage.getItem('userId')).collection("
-        let i = 0;
+      //    });
+      //});
+
+      //store elements with same class name as list
+      let itemAddItemClassElemList = document.getElementsByClassName("addItem");
+      let itemNameClassElemList = document.getElementsByClassName("itemNmae");
+      let itemPriceClassElemList = document.getElementsByClassName("itemPrice");
+      let itemImageClassElemList = document.getElementsByClassName("itemImage");
+      //let userWishListRef = db.collection("users").doc(localStorage.getItem('userId')).collection("
+      let i = 0;
 
 
-        db.collection("items").where("category", "==", "tech").limit(6).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-                                    //    console.log(doc.id, " => ", doc.data());
-            itemNameClassElemList[i].innerHTML = doc.id;
-            itemPriceClassElemList[i].innerHTML = doc.data().price
-            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-            itemAddItemClassElemList[i].onclick = function() {
+      db.collection("items").where("category", "==", "tech").limit(6).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          //    console.log(doc.id, " => ", doc.data());
+          itemNameClassElemList[i].innerHTML = doc.id;
+          itemPriceClassElemList[i].innerHTML = doc.data().price
+          itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemAddItemClassElemList[i].onclick = function () {
 
-            }
-            itemIdNumberMap = doc.data();
-            i++;
-            });
-
+          }
+          itemIdNumberMap = doc.data();
+          i++;
         });
-        db.collection("items").where("category", "==", "clothing and shoes").limit(6).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-                                    //    console.log(doc.id, " => ", doc.data());
-            itemNameClassElemList[i].innerHTML = doc.id;
-            itemPriceClassElemList[i].innerHTML = doc.data().price
-            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-            itemIdNumberMap[doc.id] = doc.data().item_number;
-            i++;
-            });
 
+      });
+      db.collection("items").where("category", "==", "clothing and shoes").limit(6).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          //    console.log(doc.id, " => ", doc.data());
+          itemNameClassElemList[i].innerHTML = doc.id;
+          itemPriceClassElemList[i].innerHTML = doc.data().price
+          itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemIdNumberMap[doc.id] = doc.data().item_number;
+          i++;
         });
-        db.collection("items").where("category", "==", "office equipment").limit(6).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-                                    //    console.log(doc.id, " => ", doc.data());
-            itemNameClassElemList[i].innerHTML = doc.id;
-            itemPriceClassElemList[i].innerHTML = doc.data().price
-            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-            itemIdNumberMap[doc.id] = doc.data().item_number;
-            i++;
-            });
 
+      });
+      db.collection("items").where("category", "==", "office equipment").limit(6).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          //    console.log(doc.id, " => ", doc.data());
+          itemNameClassElemList[i].innerHTML = doc.id;
+          itemPriceClassElemList[i].innerHTML = doc.data().price
+          itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemIdNumberMap[doc.id] = doc.data().item_number;
+          i++;
         });
-        db.collection("items").where("category", "==", "sports equipment").limit(6).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-                                    //    console.log(doc.id, " => ", doc.data());
-            itemNameClassElemList[i].innerHTML = doc.id;
-            itemPriceClassElemList[i].innerHTML = doc.data().price
-            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-            itemIdNumberMap[doc.id] = doc.data().item_number;
-            i++;
-            });
 
+      });
+      db.collection("items").where("category", "==", "sports equipment").limit(6).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          //    console.log(doc.id, " => ", doc.data());
+          itemNameClassElemList[i].innerHTML = doc.id;
+          itemPriceClassElemList[i].innerHTML = doc.data().price
+          itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemIdNumberMap[doc.id] = doc.data().item_number;
+          i++;
         });
-        db.collection("items").where("category", "==", "house products").limit(6).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-        // doc.data() is never undefined for query doc snapshots
-                                    //    console.log(doc.id, " => ", doc.data());
-            itemNameClassElemList[i].innerHTML = doc.id;
-            itemPriceClassElemList[i].innerHTML = doc.data().price
-            itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
-            itemIdNumberMap[doc.id] = doc.data().item_number;
-            i++;
-            });
 
+      });
+      db.collection("items").where("category", "==", "house products").limit(6).get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          //    console.log(doc.id, " => ", doc.data());
+          itemNameClassElemList[i].innerHTML = doc.id;
+          itemPriceClassElemList[i].innerHTML = doc.data().price
+          itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+          itemIdNumberMap[doc.id] = doc.data().item_number;
+          i++;
         });
+
+      });
     }
     readAllItems();
 
     function myProfileDirect() {
-        let my_profile = document.getElementById("myProfile");
-        my_profile.onclick = function() {
-            window.location.href = "profile.html?" + localStorage.getItem('userId');
-        };
+      let my_profile = document.getElementById("myProfile");
+      my_profile.onclick = function () {
+        window.location.href = "profile.html?" + localStorage.getItem('userId');
+      };
     }
     myProfileDirect();
 
     function querySearch() {
-        let selection = document.getElementById("dropDownSelect").value;
-        //let btn = document.getElementById("queryButton");
-        let query = document.getElementById("queryText").value;
-        //btn.onclick = function() {
-        window.location.href = "searchResult.html?" + selection + '=' + query;
-        //}
+      let selection = document.getElementById("dropDownSelect").value;
+      //let btn = document.getElementById("queryButton");
+      let query = document.getElementById("queryText").value;
+      //btn.onclick = function() {
+      window.location.href = "searchResult.html?" + selection + '=' + query;
+      //}
     }
 
     function addOnClickItemToWishList() {
     }
-    
-    
-</script>
+
+
+  </script>
 </body>
 
 </html>
