@@ -36,8 +36,11 @@
             <a class="nav-link" id="myProfile">My Profile</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" id="myProfile">Friends</a>
+            <a class="nav-link" id="myFriends">Friends</a>
           </li>
+          <li class="nav-item active">
+              <button class="nav-link collapsible" id="myRequests">Friend Requests</button>
+            </li>
           <li class="nav-item active">
             <a class="nav-link log" href="index.html">Sign out</a>
             <!--change the text when the user signs in -->
@@ -327,7 +330,6 @@
               itemRef: db.doc("items/" + item_name)
             });
           }
-
           i++;
         });
       });
@@ -343,7 +345,6 @@
               itemRef: db.doc("items/" + item_name)
             });
           }
-
           i++;
         });
       });
@@ -359,7 +360,6 @@
               itemRef: db.doc("items/" + item_name)
             });
           }
-
           i++;
         });
       });
@@ -375,7 +375,6 @@
               itemRef: db.doc("items/" + item_name)
             });
           }
-
           i++;
         });
       });
@@ -391,7 +390,6 @@
               itemRef: db.doc("items/" + item_name)
             });
           }
-   
           i++;
         });
       });
@@ -404,6 +402,13 @@
       };
     }
     myProfileDirect();
+    function myFriendsDirect() {
+      let my_friends = document.getElementById("myFriends");
+      my_friends.onclick = function () {
+        window.location.href = "friendsList.html?" + localStorage.getItem('userId');
+      };
+    }
+    myFriendsDirect();
     function querySearch() {
       let selection = document.getElementById("dropDownSelect").value;
       //let btn = document.getElementById("queryButton");
@@ -411,8 +416,6 @@
       //btn.onclick = function() {
       window.location.href = "searchResult.html?" + selection + '=' + query;
       //}
-    }
-    function addOnClickItemToWishList() {
     }
   </script>
 </body>
