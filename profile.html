@@ -183,7 +183,6 @@
             console.log(item.data()['price']);
             if (itemCard.last.value === "filled") {
                 itemCard.clone().appendTo(".cardContainer");
-                // let currentCard = itemCard.first()
                 console.log(item.id)
                 $("#start").find(".itemName:last").text(item.id);
                 $("#start").find(".itemPrice:last").text(item.data()['price']);
