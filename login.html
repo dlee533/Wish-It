@@ -46,6 +46,7 @@
     <script>
         // Initialize the FirebaseUI Widget using Firebase.
         var db = firebase.firestore();
+        console.log("test ver 1.01");
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
   callbacks: {
@@ -54,7 +55,11 @@
       // Return type determines whether we continue the redirect automatically
       // or whether we leave that to developer to handle.
       var user = authResult.user;
+      localStorage.setItem("userId", user.uid);
       if (authResult.additionalUserInfo.isNewUser) {
+          db.collection("users").doc(user.uid).collection("wishlist").doc("empty").set({
+              
+          });
           db.collection("users").doc(user.uid).set({
               display_name: user.displayName,
               name: user.displayName,

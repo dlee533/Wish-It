@@ -312,7 +312,9 @@
         let itemNameClassElemList = document.getElementsByClassName("itemNmae");
         let itemPriceClassElemList = document.getElementsByClassName("itemPrice");
         let itemImageClassElemList = document.getElementsByClassName("itemImage");
+        //let userWishListRef = db.collection("users").doc(localStorage.getItem('userId')).collection("
         let i = 0;
+
 
         db.collection("items").where("category", "==", "tech").limit(6).get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -321,6 +323,9 @@
             itemNameClassElemList[i].innerHTML = doc.id;
             itemPriceClassElemList[i].innerHTML = doc.data().price
             itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
+            itemAddItemClassElemList[i].onclick = function() {
+
+            }
             itemIdNumberMap = doc.data();
             i++;
             });
