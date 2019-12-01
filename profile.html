@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap 4 Website Example</title>
+    <title>Profile.html</title>
     <meta charset="utf-8">
 
 
@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>main.html</title>
+    <title>Profile.html</title>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="firebaseConfig.js"></script>
@@ -79,24 +79,25 @@
     </div>
 
     <!-- wishlist-->
-    <div class="container col-12 col-md-10">
-        <h1 class="display-3">Wish list</h1>
-        <div class="card"> <!--clone this element with jquery and append to the end of closing div of class="card"-->
+    <div class="container col-12 col-md-10" id="start">
+        <h1 class="display-3 wishList">Wish list</h1>
+        <div class="card itemCard" value="notFilled">
+            <!--clone this element with jquery and append to the end of closing div of class="card"-->
             <div class="card-body">
                 <div class="form-inline">
                     <input type="radio"><!-- initially set the raio button display to none-->
                     <!--set the value to the item name/other identificaftion-->
                     <div class="row">
-                        <span class="itemName">Item Name</span>: $<span class="itemPrice">Item
-                            price
-                        </span>
+                        <span class="itemName">Item Name</span>: $<span class="itemPrice">Item price</span>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="btn submit save">Save</button><!--with js, set the display of this element to none until
+        <button class="btn submit save">Save</button>
+        <!--with js, set the display of this element to none until
         'check off items' button clicked. -->
-        <buttton class="btn checkOffItems">Check off items</buttton> <!--onclick: set the display to none and
+        <buttton class="btn checkOffItems">Check off items</buttton>
+        <!--onclick: set the display to none and
         display the save button+display the radio button on item cards-->
     </div>
 
@@ -145,7 +146,7 @@
             window.location.href = "searchResult.html?" + selection + '=' + query;
             //}
         }
-        console.log(user.uid, localStorage.getItem('userId'));
+        // console.log(user.uid, localStorage.getItem('userId'));
         function myProfileDirect() {
             let my_profile = document.getElementById("myProfile");
             my_profile.onclick = function () {
@@ -154,16 +155,58 @@
         }
         myProfileDirect();
 
-     
+
 
 
         //wishlist
-        function readWishlist(userData) {
 
+        let airpods = db.collection("items").doc("airpods").get().then(function (doc) {
+            console.log(doc.data()["price"]);
+        }).catch(function () {
+            console.log("There was an error.");
+        });
+        // let itemData = airpods.data();
+        // console.log(itemData);
+        // let itemPrice = itemData["price"];
+        // console.log(itemPrice);
+
+        function readWishlist() {
+            db.collection("users").doc(uid).collection("wishlist").get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        db.collection("items").doc(doc.id).get()
+                            .then(function (itemDoc) {
+                                createItem(itemDoc);
+                            }).catch(function () {
+                                console.log("Cannot find itemDoc")
+                            })
+                        console.log(doc.id, " => ", doc.data().itemRef);
+
+                    });
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error);
+                });
         }
+        let itemCard = $(".itemCard").first();
+        function createItem(item) {
+            console.log(item.data()['price']);
+            if (itemCard.last.value === "filled") {
+                itemCard.clone().appendTo(".wishList");
+                // let currentCard = itemCard.first()
+                console.log(item.id)
+                $("#start").find(".itemName:last").text(item.id);
+                $("#start").find(".itemPrice:last").text(item.data()['price']);
+            } else {
+                console.log(item.id)
+                itemCard.last.value = "filled";
+                $("#start").find(".itemName").text(item.id);
+                $("#start").find(".itemPrice").text(item.data()["price"]);
+            }
+        }
+        readWishlist(); 
 
     </script>
-    
 </body>
 
 </html>
