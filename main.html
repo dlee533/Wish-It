@@ -295,6 +295,7 @@
 
   <script>
     var db = firebase.firestore();
+    console.log("ver 1.021");
     let itemIdNumberMap;    // to be used for onclick events of individual items (write to db for adding into the user's wishlist)
 
     function readAllItems() {
@@ -307,32 +308,32 @@
       // doc.data() is never undefined for query doc snapshots
       //console.log(doc.id, " => ", doc.data());
 
-      //    });
-      //});
-
       //store elements with same class name as list
       let itemAddItemClassElemList = document.getElementsByClassName("addItem");
       let itemNameClassElemList = document.getElementsByClassName("itemNmae");
       let itemPriceClassElemList = document.getElementsByClassName("itemPrice");
       let itemImageClassElemList = document.getElementsByClassName("itemImage");
-      //let userWishListRef = db.collection("users").doc(localStorage.getItem('userId')).collection("
+      let userWishListRef = db.collection("users").doc(localStorage.getItem('userId')).collection("wishlist");
       let i = 0;
+
 
 
       db.collection("items").where("category", "==", "tech").limit(6).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
+          let item_name = doc.id;
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
           itemAddItemClassElemList[i].onclick = function () {
-
+            userWishListRef.item_name.add({
+              itemRef: db.doc("items/" + doc.id)
+            });
           }
           itemIdNumberMap = doc.data();
           i++;
         });
-
       });
       db.collection("items").where("category", "==", "clothing and shoes").limit(6).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
