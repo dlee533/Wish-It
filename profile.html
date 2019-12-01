@@ -204,6 +204,7 @@
         function checkOnclickHandler() {
             //hide the checkOffItems btn
             document.getElementById("checkOffItems").style.display = "none";
+            
             //display radio btn + save btn
             document.getElementById("save").style.display = "block";
             let items = document.querySelectorAll(".itemRadio");
@@ -214,11 +215,22 @@
         }
         function saveOnclickHandler() {
             //get the value of items in an array : jquery?
+
             //hide save btn +radio btn
+            document.getElementById("save").style.display = "none";
+            let items = document.querySelectorAll(".itemRadio");
+            console.log(items);
+            items.forEach(function(item){
+                item.style.cssText = "visibility:hidden";
+            });
+        
             //change the css of the items with value inside the jquery, or possibly delete them from database altogether
+           
             //display the checkOffItems btn         
+            document.getElementById("checkOffItems").style.display = "block";
         }
         document.getElementById("checkOffItems").onclick = checkOnclickHandler;
+        document.getElementById("save").onclick = saveOnclickHandler;
     </script>
 </body>
 
