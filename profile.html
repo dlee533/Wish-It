@@ -81,17 +81,19 @@
     <!-- wishlist-->
     <div class="container col-12 col-md-10" id="start">
         <h1 class="display-3 wishList">Wish list</h1>
+        <div class="cardContainer">
         <div class="card itemCard" value="notFilled">
             <!--clone this element with jquery and append to the end of closing div of class="card"-->
             <div class="card-body">
                 <div class="form-inline">
-                    <input type="radio"><!-- initially set the raio button display to none-->
+                    <input type="radio" class="itemRadio"><!-- initially set the raio button display to none-->
                     <!--set the value to the item name/other identificaftion-->
                     <div class="row">
                         <span class="itemName">Item Name</span>: $<span class="itemPrice">Item price</span>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <button class="btn submit save">Save</button>
         <!--with js, set the display of this element to none until
@@ -157,7 +159,6 @@
 
 
 
-
         //wishlist
         function readWishlist() {
             db.collection("users").doc(uid).collection("wishlist").get()
@@ -181,20 +182,36 @@
         function createItem(item) {
             console.log(item.data()['price']);
             if (itemCard.last.value === "filled") {
-                itemCard.clone().appendTo(".wishList");
+                itemCard.clone().appendTo(".cardContainer");
                 // let currentCard = itemCard.first()
                 console.log(item.id)
                 $("#start").find(".itemName:last").text(item.id);
                 $("#start").find(".itemPrice:last").text(item.data()['price']);
+                $("#start").find(".itemRadio:last").val(item.id);
             } else {
                 console.log(item.id)
                 itemCard.last.value = "filled";
                 $("#start").find(".itemName").text(item.id);
                 $("#start").find(".itemPrice").text(item.data()["price"]);
+                $("#start").find(".itemRadio:last").val(item.id);
             }
         }
         readWishlist();
 
+
+
+        //hide buttons
+        function checkOnclickHandler(){
+
+                //hide the checkOffItems btn
+                //disaplay radio btn + save btn
+            
+        }
+        function saveOnclickHandler(items){
+            return function(){
+
+            }
+        }
     </script>
 </body>
 
