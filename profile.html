@@ -235,6 +235,7 @@
             itemArr.forEach(function (item) {
                 db.collection("users").doc(uid).collection("wishlist").doc(item.value).delete().then(function () {
                     console.log(item.value, " deleted from ", uid);
+                    $(item).closest(".itemCard").hide();
                 }).catch(function (error) {
                     console.error("error removing document:", error);
                 });
