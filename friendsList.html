@@ -95,14 +95,19 @@
             userReference.get().then(function(doc) {
                 if (doc.exists) {
                     //console.log("Document data:", doc.data());
+                    console.log("hello1");
                     let imgProfilePhotoElem = document.createElement("IMG");
                     let pNameElem = document.createElement("P");
                     let btnAcceptElem = document.createElement("BUTTON");
                     imgProfilePhotoElem.setAttribute("SRC", doc.data().profile_photo);
                     pNameElem.innerHTML = doc.data().name;
+                    btnAcceptElem.innerHTML = "Accept";
                     btnAcceptElem.onclick = function() {
                         addFriendToFriendList(doc.id);  //add ref to friend user uid
                     }
+                    friendRequestContainerElem.appendChild(imgProfilePhotoElem);
+                    friendRequestContainerElem.appendChild(pNameElem);
+                    friendRequestContainerElem.appendChild(btnAcceptElem);
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
@@ -112,6 +117,9 @@
             });
         }
         function addFriendToFriendList(frienduid) {
+            db.collection("users").doc(uid).collection("friends list").doc(frienduid).set({
+                userRef: db.doc("users/" + frienduid)
+            });
         }
     </script>
     </body>
