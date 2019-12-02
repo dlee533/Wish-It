@@ -51,7 +51,7 @@
         <!-- friends request -->
         <div class="jumbotron">
             <h1 class="display-3">Friends Request</h1>
-            <div class="card col-6 col-lg-4">
+            <div class="card col-6 col-lg-4" id="friendRequestBlock">
                 <!--clone this level when adding more friends-->
                 <div class="card-body">
                     <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
@@ -79,15 +79,39 @@
         </div>
     <script>
         let db = firebase.firestore();
-        let uid = localStorage.get("userId");
-        let userRef = db.collection("users").doc(uid);
+        let uid = localStorage.getItem("userId");
+        console.log(uid);
         function readRequests() {   //doc.id is other user's uid
-            userRef.collection("requests").get().then(function(querySnapshot) {
+            db.collection("users").doc(uid).collection("requests").get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                // doc.data --> 
-                
+                    let userRef = doc.data().userRef;
+                    userDocRef(userRef);
                 });
             });
+        }
+        readRequests();
+        let friendRequestContainerElem = document.getElementById("friendRequestBlock");
+        function userDocRef(userReference) {
+            userReference.get().then(function(doc) {
+                if (doc.exists) {
+                    //console.log("Document data:", doc.data());
+                    let imgProfilePhotoElem = document.createElement("IMG");
+                    let pNameElem = document.createElement("P");
+                    let btnAcceptElem = document.createElement("BUTTON");
+                    imgProfilePhotoElem.setAttribute("SRC", doc.data().profile_photo);
+                    pNameElem.innerHTML = doc.data().name;
+                    btnAcceptElem.onclick = function() {
+                        addFriendToFriendList(doc.id);  //add ref to friend user uid
+                    }
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+        }
+        function addFriendToFriendList(frienduid) {
         }
     </script>
     </body>
