@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>friends list</title>
     <meta charset="utf-8">
-
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -79,7 +77,18 @@
                 </div>
             </a>
         </div>
-        <script>
-        </script>
+    <script>
+        let db = firebase.firestore();
+        let uid = localStorage.get("userId");
+        let userRef = db.collection("users").doc(uid);
+        function readRequests() {   //doc.id is other user's uid
+            userRef.collection("requests").get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                // doc.data --> 
+                
+                });
+            });
+        }
+    </script>
     </body>
 </html>
