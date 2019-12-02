@@ -204,12 +204,12 @@
         function checkOnclickHandler() {
             //hide the checkOffItems btn
             document.getElementById("checkOffItems").style.display = "none";
-            
+
             //display radio btn + save btn
             document.getElementById("save").style.display = "block";
             let items = document.querySelectorAll(".itemCheck");
             console.log(items);
-            items.forEach(function(item){
+            items.forEach(function (item) {
                 item.style.cssText = "visibility:visible";
             });
         }
@@ -222,7 +222,7 @@
             document.getElementById("save").style.display = "none";
             let items = document.querySelectorAll(".itemCheck");
             console.log(items);
-            items.forEach(function(item){
+            items.forEach(function (item) {
                 item.style.cssText = "visibility:hidden";
             });
             //change the css of the items with value inside the jquery, or possibly delete them from database altogether
@@ -231,11 +231,11 @@
             document.getElementById("checkOffItems").style.display = "inline";
         }
 
-        function removeItems(itemArr){
-            itemArr.forEach(function(item){
-                db.collection("users").doc(uid).collection("wishlist").doc(item.value).delete().then(function(){
+        function removeItems(itemArr) {
+            itemArr.forEach(function (item) {
+                db.collection("users").doc(uid).collection("wishlist").doc(item.value).delete().then(function () {
                     console.log(item.value, " deleted from ", uid);
-                }).catch(function(error){
+                }).catch(function (error) {
                     console.error("error removing document:", error);
                 });
             });
