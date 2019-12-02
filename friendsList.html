@@ -121,6 +121,17 @@
                 userRef: db.doc("users/" + frienduid)
             });
         }
+        //read friendlist subcollection
+        function readFriendList() {
+            db.collection("users").doc(uid).collection("friends list").get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    let userRef = doc.data().userRef;
+                    userReference.get().then(function(doc) {
+                        //add friend data to DOM
+                    })
+                });
+            });
+        }
     </script>
     </body>
 </html>
