@@ -88,8 +88,8 @@
                     <input type="radio"><!-- initially set the raio button display to none-->
                     <!--set the value to the item name/other identificaftion-->
                     <div class="row">
-                        <span class="itemName">Item Name</span>: $<span class="itemPrice">Item
-                            price
+                        <span class="itemName" id="myWishList">Item Name</span>
+                        
                         </span>
                     </div>
                 </div>
@@ -128,15 +128,22 @@
                 });
         }
         getUserData();
+        let myWishList = [];    // store wishlistitem refs here
+        function getUserWishList() {
+            let displayWishListElem = document.getElementById("myWishList");
+            
+
+            
+        }
         function updateElements(userData) {
-            displayNameElem = document.getElementById("displayName");
-            displayNameElem.innerHTML = userData.display_name;
-            displayShortBioElem = document.getElementById("shortBio");
+            let wishListRef = db.collection("users").doc(uid).collction("wishlist");
+            let displayNameElem = document.getElementById("displayName");
+            displayNameElem.innerHTML = userData.name;
+            let displayShortBioElem = document.getElementById("shortBio");
             displayShortBioElem.innerHTML = userData.short_bio; //to be updated to db once user sets one
-            displayProfilePhoto = document.getElementById("profilePhoto");
+            let displayProfilePhoto = document.getElementById("profilePhoto");
             displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
-            displayNameElem = document.getElementById("displayName");
-            displayNameElem.innerHTML = userData.display_name;
+            getUserWishList();
         }
         function uploadProfilePhoto(elem) {
         }

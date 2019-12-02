@@ -116,7 +116,7 @@
             imgElem.setAttribute("SRC", data.profile_photo);    //to be added on user's profile page and update to db
             imgElem.setAttribute("WIDTH", 150 + 'px');        // to be edited with CSS; temporary here for testing
             pElemName.innerHTML = data.name;
-            pElemBackground.innerHTML = "Vancouver, Canada";    //short bio (residence location, education background)
+            pElemBackground.innerHTML = data.short_bio;    //short bio (residence location, education background)
         }
         function queryItemsResults() {
             db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
