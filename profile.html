@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap 4 Website Example</title>
+    <title>Profile.html</title>
     <meta charset="utf-8">
 
 
@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>main.html</title>
+    <title>Profile.html</title>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="firebaseConfig.js"></script>
@@ -67,7 +67,7 @@
             <div class="card-body">
                 <div class="row">
                     <img class="profileImage col-6 col-lg-3 center responsive" id="profilePhoto"
-                        src="images/profile_pic.png" onclick="uploadProfilePhoto(this)">
+                        onclick="uploadProfilePhoto(this)">
                     <div class="container col-6">
                         <h3 class="name" id="displayName">Name</h3>
                         <p class="name" id="shortBio"></p>
@@ -79,6 +79,7 @@
     </div>
 
     <!-- wishlist-->
+<<<<<<< HEAD
     <div class="container col-12 col-md-10">
         <h1 class="display-3">Wish list</h1>
         <div class="card">
@@ -91,14 +92,29 @@
                         <span class="itemName" id="myWishList">Item Name</span>
                         
                         </span>
+=======
+    <div class="container col-12 col-md-10" id="start">
+        <h1 class="display-3 wishList">Wish list</h1>
+        <div class="cardContainer">
+            <div class="card itemCard" value="notFilled">
+                <!--clone this element with jquery and append to the end of closing div of class="card"-->
+                <div class="card-body">
+                    <div class="form-inline">
+                        <input type="checkbox" class="itemCheck" style="visibility:hidden;">
+                        <!-- initially set the raio button display to none-->
+                        <!--set the value to the item name/other identificaftion-->
+                        <div class="row">
+                            <span class="itemName">Item Name</span>: $<span class="itemPrice">Item price</span>
+                        </div>
+>>>>>>> b70f80909f07a95fde33149aded629ac811755e6
                     </div>
                 </div>
             </div>
         </div>
-        <button class="btn submit save">Save</button>
+        <button class="btn submit" id="save" style="display:none;">Save</button>
         <!--with js, set the display of this element to none until
         'check off items' button clicked. -->
-        <buttton class="btn checkOffItems">Check off items</buttton>
+        <buttton class="btn" id="checkOffItems">Check off items</buttton>
         <!--onclick: set the display to none and
         display the save button+display the radio button on item cards-->
     </div>
@@ -155,7 +171,7 @@
             window.location.href = "searchResult.html?" + selection + '=' + query;
             //}
         }
-        console.log(user.uid, localStorage.getItem('userId'));
+        // console.log(user.uid, localStorage.getItem('userId'));
         function myProfileDirect() {
             let my_profile = document.getElementById("myProfile");
             my_profile.onclick = function () {
@@ -164,6 +180,91 @@
         }
         myProfileDirect();
 
+
+
+        //wishlist
+        function readWishlist() {
+            db.collection("users").doc(uid).collection("wishlist").get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        db.collection("items").doc(doc.id).get()
+                            .then(function (itemDoc) {
+                                createItem(itemDoc);
+                            }).catch(function () {
+                                console.log("Cannot find itemDoc")
+                            })
+                        console.log(doc.id, " => ", doc.data().itemRef);
+
+                    });
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error);
+                });
+        }
+        let itemCard = $(".itemCard").first();
+        function createItem(item) {
+            console.log(item.data()['price']);
+            if (itemCard.last.value === "filled") {
+                itemCard.clone().appendTo(".cardContainer");
+                console.log(item.id)
+                $("#start").find(".itemName:last").text(item.id);
+                $("#start").find(".itemPrice:last").text(item.data()['price']);
+                $("#start").find(".itemCheck:last").val(item.id);
+            } else {
+                console.log(item.id)
+                itemCard.last.value = "filled";
+                $("#start").find(".itemName").text(item.id);
+                $("#start").find(".itemPrice").text(item.data()["price"]);
+                $("#start").find(".itemCheck:last").val(item.id);
+            }
+        }
+        readWishlist();
+
+
+
+        //hide buttons
+        function checkOnclickHandler() {
+            //hide the checkOffItems btn
+            document.getElementById("checkOffItems").style.display = "none";
+
+            //display radio btn + save btn
+            document.getElementById("save").style.display = "block";
+            let items = document.querySelectorAll(".itemCheck");
+            console.log(items);
+            items.forEach(function (item) {
+                item.style.cssText = "visibility:visible";
+            });
+        }
+
+        function saveOnclickHandler() {
+            //get the value of items in an array : jquery?
+            let itemsToDelete = document.querySelectorAll("input:checked");
+            console.log(itemsToDelete)
+            //hide save btn +radio btn
+            document.getElementById("save").style.display = "none";
+            let items = document.querySelectorAll(".itemCheck");
+            console.log(items);
+            items.forEach(function (item) {
+                item.style.cssText = "visibility:hidden";
+            });
+            //change the css of the items with value inside the jquery, or possibly delete them from database altogether
+            removeItems(itemsToDelete);
+            //display the checkOffItems btn         
+            document.getElementById("checkOffItems").style.display = "inline";
+        }
+
+        function removeItems(itemArr) {
+            itemArr.forEach(function (item) {
+                db.collection("users").doc(uid).collection("wishlist").doc(item.value).delete().then(function () {
+                    console.log(item.value, " deleted from ", uid);
+                    $(item).closest(".itemCard").hide();
+                }).catch(function (error) {
+                    console.error("error removing document:", error);
+                });
+            });
+        };
+        document.getElementById("checkOffItems").onclick = checkOnclickHandler;
+        document.getElementById("save").onclick = saveOnclickHandler;
     </script>
 </body>
 
