@@ -57,7 +57,7 @@
                     <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
                     <p class="friend_name">Name:</p>
                     <!--replace this with actual name-->
-                    <button class="btn acceptRequest">Accept</button>
+                    <button class="btn acceptRequest" onclick="addFriendToFriendList()">Accept</button>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
             <h1 class="display-3">Friends List</h1>
             <a class="friendsProfile" href="#">
                 <!--href to profile with friends info-->
-                <div class="card col-6 col-lg-4">
+                <div class="card col-6 col-lg-4" id="friendListBlock">
                     <!--clone this level when adding more friends-->
                     <div class="card-body">
                         <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
@@ -81,9 +81,10 @@
         let db = firebase.firestore();
         let uid = localStorage.getItem("userId");
         console.log(uid);
-        function readRequests() {   //doc.id is other user's uid
+        function readRequests() {   //doc.id is other user's uid; tested; works
             db.collection("users").doc(uid).collection("requests").get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
+                    //console.log(doc.data().userRef);
                     let userRef = doc.data().userRef;
                     userDocRef(userRef);
                 });
@@ -91,11 +92,11 @@
         }
         readRequests();
         let friendRequestContainerElem = document.getElementById("friendRequestBlock");
-        function userDocRef(userReference) {
+        function userDocRef(userReference) { //tested; works
             userReference.get().then(function(doc) {
                 if (doc.exists) {
                     //console.log("Document data:", doc.data());
-                    console.log("hello1");
+                    console.log("hello1", doc.id);
                     let imgProfilePhotoElem = document.createElement("IMG");
                     let pNameElem = document.createElement("P");
                     let btnAcceptElem = document.createElement("BUTTON");
@@ -116,22 +117,62 @@
                 console.log("Error getting document:", error);
             });
         }
-        function addFriendToFriendList(frienduid) {
+        function addFriendToFriendList(frienduid) { //tested; works
             db.collection("users").doc(uid).collection("friends list").doc(frienduid).set({
                 userRef: db.doc("users/" + frienduid)
+            });
+            console.log("friend", frienduid);
+            console.log('user', uid);
+            db.collection("users").doc(frienduid).collection("friends list").doc(uid).set({
+                userRef: db.doc("users/" + uid)
             });
         }
         //read friendlist subcollection
         function readFriendList() {
             db.collection("users").doc(uid).collection("friends list").get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    let userRef = doc.data().userRef;
+                    let userReference = doc.data().userRef;
                     userReference.get().then(function(doc) {
-                        //add friend data to DOM
+                        createFriendBlock(userReference);
                     })
                 });
             });
         }
+        readFriendList();
+        function createFriendBlock(userReference) {
+            let friendListContainerElem = document.getElementById("friendListBlock");
+            userReference.get().then(function(doc) {
+                if (doc.exists) {
+                    //console.log("Document data:", doc.data());
+                    console.log("hello1", doc.id);
+                    let imgProfilePhotoElem = document.createElement("IMG");
+                    let pNameElem = document.createElement("P");
+                    let btnGoToFriendElem = document.createElement("BUTTON");
+                    imgProfilePhotoElem.setAttribute("SRC", doc.data().profile_photo);
+                    pNameElem.innerHTML = doc.data().name;
+                    btnGoToFriendElem.innerHTML = "Friend's page";
+                    btnGoToFriendElem.onclick = function() {
+                        addFriendToFriendList(doc.id);  //add ref to friend user uid
+                    }
+                    friendListContainerElem.appendChild(imgProfilePhotoElem);
+                    friendListContainerElem.appendChild(pNameElem);
+                    friendListContainerElem.appendChild(btnGoToFriendElem);
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+        }
     </script>
+    <div class="card col-6 col-lg-4">
+            <!--clone this level when adding more friends-->
+            <div class="card-body">
+                <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
+                <p class="friend_name">Name:</p>
+                <!--replace this with actual name-->
+            </div>
+        </div>
     </body>
 </html>
