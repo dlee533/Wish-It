@@ -35,10 +35,10 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" id="myProfile">My Profile</a>
+                        <a class="nav-link" id="myProfile">My Profile</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Friends</a>
+                        <a class="nav-link" id="myFriends">Friends</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="index.html">Sign out</a>
@@ -179,6 +179,13 @@
             };
         }
         myProfileDirect();
+        function myFriendsDirect() {
+            let my_friends = document.getElementById("myFriends");
+            my_friends.onclick = function () {
+                window.location.href = "friendsList.html?" + localStorage.getItem('userId');
+            };
+        }
+        myFriendsDirect();
 
 
 
