@@ -39,9 +39,6 @@
             <a class="nav-link" id="myFriends">Friends</a>
           </li>
           <li class="nav-item active">
-              <button class="nav-link collapsible" id="myRequests">Friend Requests</button>
-            </li>
-          <li class="nav-item active">
             <a class="nav-link signOut" href="index.html">Sign out</a>
             <!--change the text when the user signs in -->
           </li>
@@ -298,7 +295,7 @@
 
   <script>
     var db = firebase.firestore();
-    console.log("ver 1.023");
+    console.log("ver 1.2");
     let itemIdNumberMap;    // to be used for onclick events of individual items (write to db for adding into the user's wishlist)
     function readAllItems() {
       let itemNamesList = [];
@@ -337,6 +334,7 @@
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
+          let item_name = String(doc.id);
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
@@ -352,6 +350,7 @@
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
+          let item_name = String(doc.id);
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
@@ -367,6 +366,7 @@
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
+          let item_name = String(doc.id);
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);
@@ -382,6 +382,7 @@
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
+          let item_name = String(doc.id);
           itemNameClassElemList[i].innerHTML = doc.id;
           itemPriceClassElemList[i].innerHTML = doc.data().price
           itemImageClassElemList[i].setAttribute("src", doc.data().img_src);

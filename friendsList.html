@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>friends list</title>
     <meta charset="utf-8">
-
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -30,7 +28,7 @@
         <!-- header -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="index.html">WishIt</a>
+                <a class="navbar-brand" href="home.html">WishIt</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -38,10 +36,10 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">My Profile</a>
+                            <a class="nav-link" id="myProfile">My Profile</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Friends List</a>
+                            <a class="nav-link" id="myFriends">Friends List</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link signOut">Sign out</a>
@@ -51,16 +49,28 @@
             </div>
         </nav><br>
 
+        <!-- search bar-->
+  <div class='container'></div>
+  <div class="form-inline center col-12 col-md-10 col-lg-8">
+    <select class="browser-default custom-select col-2 dropdownMenu" id="dropDownSelect">
+      <option selected value="users">User</option>
+      <option value="items">Item</option>
+    </select>
+    <input id="queryText" class="form-control col-8 search-bar" type="text" placeholder="Search" aria-label="Search">
+    <button id="queryButton" type='submit' onclick="querySearch()" class='btn search-btn col-2'>Search</button>
+  </div>
+  </div>
+
         <!-- friends request -->
         <div class="jumbotron">
             <h1 class="display-3">Friends Request</h1>
-            <div class="card col-6 col-lg-4">
+            <div class="card col-6 col-lg-4" id="friendRequestBlock">
                 <!--clone this level when adding more friends-->
                 <div class="card-body">
                     <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
                     <p class="friend_name">Name:</p>
                     <!--replace this with actual name-->
-                    <button class="btn acceptRequest">Accept</button>
+                    <button class="btn acceptRequest" onclick="addFriendToFriendList()">Accept</button>
                 </div>
             </div>
         </div>
@@ -70,7 +80,7 @@
             <h1 class="display-3">Friends List</h1>
             <a class="friendsProfile" href="#">
                 <!--href to profile with friends info-->
-                <div class="card col-6 col-lg-4">
+                <div class="card col-6 col-lg-4" id="friendListBlock">
                     <!--clone this level when adding more friends-->
                     <div class="card-body">
                         <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
@@ -80,5 +90,117 @@
                 </div>
             </a>
         </div>
+    <script>
+        console.log("ver 1.2");
+        let db = firebase.firestore();
+        let uid = localStorage.getItem("userId");
+        console.log(uid);
+        function readRequests() {   //doc.id is other user's uid; tested; works
+            db.collection("users").doc(uid).collection("requests").get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    //console.log(doc.data().userRef);
+                    let userRef = doc.data().userRef;
+                    userDocRef(userRef);
+                });
+            });
+        }
+        readRequests();
+        let friendRequestContainerElem = document.getElementById("friendRequestBlock");
+        function userDocRef(userReference) { //tested; works
+            userReference.get().then(function(doc) {
+                if (doc.exists) {
+                    //console.log("Document data:", doc.data());
+                    console.log("hello1", doc.id);
+                    let imgProfilePhotoElem = document.createElement("IMG");
+                    let pNameElem = document.createElement("P");
+                    let btnAcceptElem = document.createElement("BUTTON");
+                    imgProfilePhotoElem.setAttribute("SRC", doc.data().profile_photo);
+                    pNameElem.innerHTML = doc.data().name;
+                    btnAcceptElem.innerHTML = "Accept";
+                    btnAcceptElem.onclick = function() {
+                        addFriendToFriendList(doc.id);  //add ref to friend user uid
+                    }
+                    friendRequestContainerElem.appendChild(imgProfilePhotoElem);
+                    friendRequestContainerElem.appendChild(pNameElem);
+                    friendRequestContainerElem.appendChild(btnAcceptElem);
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+        }
+        function addFriendToFriendList(frienduid) { //tested; works
+            db.collection("users").doc(uid).collection("friends list").doc(frienduid).set({
+                userRef: db.doc("users/" + frienduid)
+            });
+            console.log("friend", frienduid);
+            console.log('user', uid);
+            db.collection("users").doc(frienduid).collection("friends list").doc(uid).set({
+                userRef: db.doc("users/" + uid)
+            });
+        }
+        //read friendlist subcollection
+        function readFriendList() {
+            db.collection("users").doc(uid).collection("friends list").get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    let userReference = doc.data().userRef;
+                    userReference.get().then(function(doc) {
+                        createFriendBlock(userReference);
+                    })
+                });
+            });
+        }
+        readFriendList();
+        function createFriendBlock(userReference) {
+            let friendListContainerElem = document.getElementById("friendListBlock");
+            userReference.get().then(function(doc) {
+                if (doc.exists) {
+                    //console.log("Document data:", doc.data());
+                    console.log("hello1", doc.id);
+                    let imgProfilePhotoElem = document.createElement("IMG");
+                    let pNameElem = document.createElement("P");
+                    let btnGoToFriendElem = document.createElement("BUTTON");
+                    imgProfilePhotoElem.setAttribute("SRC", doc.data().profile_photo);
+                    pNameElem.innerHTML = doc.data().name;
+                    btnGoToFriendElem.innerHTML = "Friend's page";
+                    btnGoToFriendElem.onclick = function() {
+                        addFriendToFriendList(doc.id);  //add ref to friend user uid
+                    }
+                    friendListContainerElem.appendChild(imgProfilePhotoElem);
+                    friendListContainerElem.appendChild(pNameElem);
+                    friendListContainerElem.appendChild(btnGoToFriendElem);
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+        }
+        function myProfileDirect() {
+            let my_profile = document.getElementById("myProfile");
+            my_profile.onclick = function () {
+                window.location.href = "profile.html?" + localStorage.getItem('userId');
+            };
+        }
+        myProfileDirect();
+        function myFriendsDirect() {
+            let my_friends = document.getElementById("myFriends");
+            my_friends.onclick = function () {
+                window.location.href = "friendsList.html?" + localStorage.getItem('userId');
+            };
+        }
+        myFriendsDirect();
+        function querySearch() {
+            let selection = document.getElementById("dropDownSelect").value;
+            //let btn = document.getElementById("queryButton");
+            let query = document.getElementById("queryText").value;
+            //btn.onclick = function() {
+            window.location.href = "searchResult.html?" + selection + '=' + query;
+            //}
+        }
+    </script>
     </body>
 </html>
