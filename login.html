@@ -55,6 +55,7 @@
       // Return type determines whether we continue the redirect automatically
       // or whether we leave that to developer to handle.
       var user = authResult.user;
+      localStorage.clear();
       localStorage.setItem("userId", user.uid);
       console.log(localStorage.getItem("userId"));
       if (authResult.additionalUserInfo.isNewUser) {

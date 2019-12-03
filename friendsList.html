@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">My Profile</a>
+                            <a class="nav-link" id="myProfile">My Profile</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="#">Friends List</a>
@@ -165,6 +165,13 @@
             }).catch(function(error) {
                 console.log("Error getting document:", error);
             });
+        }
+            myProfileDirect();
+        function myFriendsDirect() {
+            let my_friends = document.getElementById("myFriends");
+            my_friends.onclick = function () {
+                window.location.href = "friendsList.html?" + localStorage.getItem('userId');
+            };
         }
     </script>
     </body>
