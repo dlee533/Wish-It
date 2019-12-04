@@ -13,6 +13,7 @@
     <title>Profile.html</title>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>
     <script src="firebaseConfig.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -65,14 +66,15 @@
     <div class="container col-12 col-md-10">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <input type="file" accept="image/*" onchange="openFile(event)" id="filetag">
+                <div class="row" id="profileBlock">
+                    <!--input tag dynamically created if user uid in localstorage matches string url uid-->
+                    <!--<input type="file" accept="image/*" onchange="openFile(event)" id="filetag">-->
                     <img class="profileImage col-6 col-lg-3 center responsive" id="profilePhoto">
                     
-                    <div class="container col-6">
+                    <div class="container col-6" id="bioBlock">
                         <h3 class="name" id="displayName">Name</h3>
-                        <p class="name" id="shortBio"></p>
-                        <button class="btn followingStatus responsive">Wishlist</button>
+                        <p class="name" id="shortBio">Vancouver</p>
+                        <!--input tag added dynamically for editing shortbio only if profile is user's-->
                     </div>
                 </div>
             </div>
@@ -111,9 +113,48 @@
         let queryStringURL = decodeURIComponent(window.location.search);
         let tempVar = queryStringURL.split('?');
         let uid = tempVar[1];
+        let profilePhotoStorageRef = firebase.storage().ref("Profile Photos/" + uid);
         //console.log(uid, typeof (uid));   works
         //let userData;
         //let storage = firebase.storage().ref;
+        //<input id="shortBioBtn" type="button" value="Edit" onclick = "editShortBio()" />
+        if (localStorage.getItem('userId') === uid) {
+            //if profile.html is not the logged in user's, don't let them upload photo
+            let uploadPicElement = document.createElement('INPUT');
+            uploadPicElement.setAttribute("TYPE", "FILE");
+            uploadPicElement.setAttribute("ACCEPT", "IMAGE/*");
+            uploadPicElement.setAttribute("ONCHANGE", "openFile(event)");
+            uploadPicElement.setAttribute("ID", "filetag");
+            profileBlockElem = document.getElementById("profileBlock");
+            profileBlockElem.appendChild(uploadPicElement);
+
+            let shortBioTextElem = document.getElementById("shortBio");
+            let bioBlockElem = document.getElementById("bioBlock");
+            let editShortBioElement = document.createElement("INPUT");
+            editShortBioElement.setAttribute("TYPE", "BUTTON");
+            editShortBioElement.setAttribute("ID", "shortBioBtn");
+            let shortBioBtnElem = document.getElementById("shortBioBtn");
+            bioBlockElem.appendChild(editShortBioElement);//shortBioBtnElem);
+            shortBioEdit();
+            function shortBioEdit() {
+                editShortBioElement.setAttribute("VALUE", "Edit short bio");
+
+                editShortBioElement.onclick = function() {
+                    editShortBio();
+                }
+            }
+            function editShortBio() {
+                shortBioTextElem.setAttribute("contenteditable", "true");
+                editShortBioElement.setAttribute("VALUE", "SAVE");
+                if (editShortBioElement.value === "SAVE") {
+                    editShortBioElement.onclick = function() {
+                        //editShortBioElement.innerHTML = editedShortBioElement;
+                        editShortBioElement.setAttribute("contenteditable", "false");
+                    }
+                }
+                shortBioEdit();
+            }
+        }
 
         function getUserData() {
             db.collection("users").doc(uid).get()
@@ -132,10 +173,7 @@
         getUserData();
         let myWishList = [];    // store wishlistitem refs here
         function getUserWishList() {
-            let displayWishListElem = document.getElementById("myWishList");
-            
-
-            
+            let displayWishListElem = document.getElementById("myWishList");            
         }
         function updateElements(userData) {
             console.log(userData.name);
@@ -144,8 +182,23 @@
             displayNameElem.innerHTML = userData.name;
             let displayShortBioElem = document.getElementById("shortBio");
             displayShortBioElem.innerHTML = userData.short_bio; //to be updated to db once user sets one
-            let displayProfilePhoto = document.getElementById("profilePhoto");
-            displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
+            profilePhotoStorageRef.getDownloadURL().then(function(url) {
+            //get profile photo from storage
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = 'blob';
+                xhr.onload = function(event) {
+                    var blob = xhr.response;
+                };
+                xhr.open('GET', url);
+                //xhr.send();
+
+                // Or inserted into an <img> element:
+                let displayProfilePhoto = document.getElementById("profilePhoto");
+                displayProfilePhoto.src = url;
+                }).catch(function(error) {
+                // Handle any errors
+                });
+            displayProfilePhoto.setAttribute("SRC", profilePhotoStorageRef.getDownloadURL());//userData.profile_photo); // to be updated on db storage once user uploads manually
             //getUserWishList();
         }
 
@@ -163,11 +216,17 @@
 
                 reader.onload = function() {
                     let dataURL = reader.result;
+                    //store picture to db storage and set the new profile photo path to it
+                    // here
+                    // make sure user uploading file is it's own profile only
+                    //console.log(dataURL);
+                    //profilePhotoStorageRef.put(dataURL);
                     preview.setAttribute('src', dataURL);
                 }
 
                 reader.readAsDataURL(input.files[0]);
-                console.log(preview.src);
+                profilePhotoStorageRef.put(input.files[0]);
+                console.log(input.files[0]);
         }
         
         function querySearch() {
