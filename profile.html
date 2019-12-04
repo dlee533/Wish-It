@@ -106,11 +106,11 @@
 
     <script>
         let db = firebase.firestore();
-        console.log("test ver 1.01");
+        console.log("test ver 2.02");
         let queryStringURL = decodeURIComponent(window.location.search);
         let tempVar = queryStringURL.split('?');
         let uid = tempVar[1];
-        console.log(uid, typeof (uid));
+        //console.log(uid, typeof (uid));   works
         //let userData;
         //let storage = firebase.storage().ref;
 
@@ -118,7 +118,7 @@
             db.collection("users").doc(uid).get()
                 .then(function (doc) {
                     if (doc.exists) {
-                        console.log(doc.data());
+                        //console.log(doc.data());  works
                         updateElements(doc.data());
                     } else {
                         // doc.data() will be undefined in this case
@@ -137,14 +137,15 @@
             
         }
         function updateElements(userData) {
-            let wishListRef = db.collection("users").doc(uid).collction("wishlist");
+            console.log(userData.name);
+            //let wishListRef = db.collection("users").doc(uid).collction("wishlist");
             let displayNameElem = document.getElementById("displayName");
             displayNameElem.innerHTML = userData.name;
             let displayShortBioElem = document.getElementById("shortBio");
             displayShortBioElem.innerHTML = userData.short_bio; //to be updated to db once user sets one
             let displayProfilePhoto = document.getElementById("profilePhoto");
             displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
-            getUserWishList();
+            //getUserWishList();
         }
         function uploadProfilePhoto(elem) {
         }
@@ -171,8 +172,6 @@
             };
         }
         myFriendsDirect();
-
-
 
         //wishlist
         function readWishlist() {
@@ -259,6 +258,9 @@
         document.getElementById("save").onclick = saveOnclickHandler;
     </script>
     <script src="signout.js"></script>
+
+
+        </script>
 </body>
 
 </html>
