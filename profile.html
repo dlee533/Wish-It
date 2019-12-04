@@ -66,8 +66,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <img class="profileImage col-6 col-lg-3 center responsive" id="profilePhoto"
-                        onclick="uploadProfilePhoto(this)">
+                    <input type="file" accept="image/*" onchange="openFile(event)" id="filetag">
+                    <img class="profileImage col-6 col-lg-3 center responsive" id="profilePhoto">
+                    
                     <div class="container col-6">
                         <h3 class="name" id="displayName">Name</h3>
                         <p class="name" id="shortBio"></p>
@@ -147,8 +148,28 @@
             displayProfilePhoto.setAttribute("SRC", userData.profile_photo); // to be updated on db storage once user uploads manually
             //getUserWishList();
         }
-        function uploadProfilePhoto(elem) {
+
+        let fileTag = document.getElementById("filetag");
+        let preview = document.getElementById("profilePhoto");
+        //fileTag.addEventListener("onchange", function() {
+        //        changeImage(this);
+        //});
+        function openFile(event) {
+            let reader = new FileReader();
+            let input = event.target;
+
+            //if (input.files && input.files[0]) {
+            //    reader = new FileReader();
+
+                reader.onload = function() {
+                    let dataURL = reader.result;
+                    preview.setAttribute('src', dataURL);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+                console.log(preview.src);
         }
+        
         function querySearch() {
             let selection = document.getElementById("dropDownSelect").value;
             //let btn = document.getElementById("queryButton");
@@ -256,11 +277,10 @@
         };
         document.getElementById("checkOffItems").onclick = checkOnclickHandler;
         document.getElementById("save").onclick = saveOnclickHandler;
+
+
     </script>
     <script src="signout.js"></script>
-
-
-        </script>
 </body>
 
 </html>
