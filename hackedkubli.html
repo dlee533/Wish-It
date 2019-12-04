@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-database.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        var firebaseConfig = {
+    apiKey: "AIzaSyCgbsTfamy3avnbci4ndd_zKb_KgNDX34A",
+    authDomain: "hangman-39d72.firebaseapp.com",
+    databaseURL: "https://hangman-39d72.firebaseio.com",
+    projectId: "hangman-39d72",
+    storageBucket: "hangman-39d72.appspot.com",
+    messagingSenderId: "973302149193",
+    appId: "1:973302149193:web:bef8d84aed25fbf2400f98"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+
+db.collection("Users").doc("Choi").set({
+        score: 9999999999,
+    }).then(function () {
+        console.log("Successfully updated");
+    });
+</script>
+</body>
+</html>
