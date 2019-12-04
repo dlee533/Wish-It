@@ -69,7 +69,7 @@
         </nav>
 
         <!-- search result-->
-        <div class="jumbotron">
+        <div class="container">
             <div class="card col-12 col-lg-6">
                 <div class="card-body">
                     <p class="result_info" id="resultInfoLabel">Results:</p>
@@ -115,6 +115,7 @@
             pElemName = document.createElement("P");
             pElemBackground = document.createElement("P");
             parentDiv = document.getElementById("results");
+            divElem.className = "jumbotron resultDiv";
             parentDiv.appendChild(divElem);
             divElem.appendChild(imgElem);
             divElem.appendChild(pElemName);
