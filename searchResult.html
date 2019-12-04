@@ -44,7 +44,7 @@
                                 <a class="nav-link" id="myFriends">Friends List</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link signOut">Log-in</a>
+                            <a class="nav-link signOut" href="login.html">Log-in</a>
                             <!--change the text when the user signs in -->
                         </li>
                     </ul>
@@ -88,6 +88,7 @@
         tempVar = passedValue.split('=');
         let selectionType = String(tempVar[0].toLowerCase());
         let searchValue = String(tempVar[1].toUpperCase());
+        let uid = localStorage.getItem("userId");
         console.log('HELLO', selectionType, typeof (selectionType), searchValue, typeof (searchValue));
 
         if (selectionType === "users") {
@@ -116,12 +117,24 @@
             divElem.appendChild(imgElem);
             divElem.appendChild(pElemName);
             divElem.appendChild(pElemBackground);
+
+            addFriendBtnElem = document.createElement("BUTTON");
+            addFriendBtnElem.innerHTML = "Add Friend";
+            addFriendBtnElem.onclick = function() {
+                //add to friend's friend request system (no need for requests on user)
+                db.collection("users").doc(frienduid).collection("requests").doc(uid).set({
+                    userRef: db.doc("users/" + uid)
+                });
+                addFriendBtnElem.innerHTML = "Added!";
+            }
+            divElem.appendChild(addFriendBtnElem);
             viewFriendBtnElem = document.createElement("BUTTON");
             viewFriendBtnElem.innerHTML = "View";
             viewFriendBtnElem.onclick = function() {
             //db.collection("users").doc(doc.id).get().then(function(doc) {
                 window.location.href = "profile.html?" + frienduid;    
             }
+
             divElem.appendChild(viewFriendBtnElem);
             imgElem.setAttribute("SRC", data.profile_photo);    //to be added on user's profile page and update to db
             imgElem.setAttribute("WIDTH", 150 + 'px');        // to be edited with CSS; temporary here for testing
