@@ -41,7 +41,7 @@
                         <a class="nav-link" id="myFriends">Friends</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Sign out</a>
+                        <a class="nav-link signOut" href="index.html">Sign out</a>
                     </li>
                 </ul>
             </div>
@@ -79,20 +79,6 @@
     </div>
 
     <!-- wishlist-->
-<<<<<<< HEAD
-    <div class="container col-12 col-md-10">
-        <h1 class="display-3">Wish list</h1>
-        <div class="card">
-            <!--clone this element with jquery and append to the end of closing div of class="card"-->
-            <div class="card-body">
-                <div class="form-inline">
-                    <input type="radio"><!-- initially set the raio button display to none-->
-                    <!--set the value to the item name/other identificaftion-->
-                    <div class="row">
-                        <span class="itemName" id="myWishList">Item Name</span>
-                        
-                        </span>
-=======
     <div class="container col-12 col-md-10" id="start">
         <h1 class="display-3 wishList">Wish list</h1>
         <div class="cardContainer">
@@ -106,7 +92,6 @@
                         <div class="row">
                             <span class="itemName">Item Name</span>: $<span class="itemPrice">Item price</span>
                         </div>
->>>>>>> b70f80909f07a95fde33149aded629ac811755e6
                     </div>
                 </div>
             </div>
@@ -273,6 +258,7 @@
         document.getElementById("checkOffItems").onclick = checkOnclickHandler;
         document.getElementById("save").onclick = saveOnclickHandler;
     </script>
+    <script src="signout.js"></script>
 </body>
 
 </html>
