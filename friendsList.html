@@ -65,10 +65,10 @@
             <div class="card col-6 col-lg-4" id="friendRequestBlock">
                 <!--clone this level when adding more friends-->
                 <div class="card-body">
-                    <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
-                    <p class="friend_name">Name:</p>
+                    <!--<img src="images/profile_pic.png" alt="profile_pic" class="responsive">
+                    <p class="friend_name">Name:</p>-->
                     <!--replace this with actual name-->
-                    <button class="btn acceptRequest" onclick="addFriendToFriendList()">Accept</button>
+                    <!--<button class="btn acceptRequest" onclick="addFriendToFriendList()">Accept</button>-->
                 </div>
             </div>
         </div>
@@ -80,10 +80,10 @@
                 <!--href to profile with friends info-->
                 <div class="card col-6 col-lg-4" id="friendListBlock">
                     <!--clone this level when adding more friends-->
-                    <div class="card-body">
+                    <!--<div class="card-body">
                         <img src="images/profile_pic.png" alt="profile_pic" class="responsive">
                         <p class="friend_name">Name:</p>
-                        <!--replace this with actual name-->
+                        <!--replace this with actual name-->-->
                     </div>
                 </div>
             </a>
@@ -104,6 +104,7 @@
         }
         readRequests();
         let friendRequestContainerElem = document.getElementById("friendRequestBlock");
+        
         function userDocRef(userReference) { //tested; works
             userReference.get().then(function(doc) {
                 if (doc.exists) {
@@ -117,6 +118,7 @@
                     btnAcceptElem.innerHTML = "Accept";
                     btnAcceptElem.onclick = function() {
                         addFriendToFriendList(doc.id);  //add ref to friend user uid
+                        btnAcceptElem.innerHTML = "Added!";
                     }
                     friendRequestContainerElem.appendChild(imgProfilePhotoElem);
                     friendRequestContainerElem.appendChild(pNameElem);
@@ -164,7 +166,8 @@
                     pNameElem.innerHTML = doc.data().name;
                     btnGoToFriendElem.innerHTML = "Friend's page";
                     btnGoToFriendElem.onclick = function() {
-                        addFriendToFriendList(doc.id);  //add ref to friend user uid
+                        window.location.href = "profile.html?" + doc.id;
+                        //go to friend's profile page when clicking "Friend's page"
                     }
                     friendListContainerElem.appendChild(imgProfilePhotoElem);
                     friendListContainerElem.appendChild(pNameElem);
@@ -192,7 +195,7 @@
             };
         }
         myFriendsDirect();
-        
+
         function querySearch() {
             let selection = document.getElementById("dropDownSelect").value;
             //let btn = document.getElementById("queryButton");
