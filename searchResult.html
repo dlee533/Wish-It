@@ -14,7 +14,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>
     <script src="firebaseConfig.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -74,7 +74,14 @@
                 <div class="card-body">
                     <p class="result_info" id="resultInfoLabel">Results:</p>
                     <div id="addCustomItem">
-                        <button id="addCustomItemBtn" onclick="addCustomItem()">Add Custom Item</button>
+                        <button data-toggle="collapse" data-target="#demo" onclick="editCollapsedContent()">Add custom item</button>
+                        <div id="demo" class="collapse">
+                            Item Name: <p id="customItemName"></p>
+                            Item Price: <p id="customItemPrice"></p>
+                            <input type="file" accept="image/*" onchange="openFile(event)" id="filetag">
+                            <img id="customItemImg" />
+                            <button id="saveBtn">Add item to my wishlist</button>
+                        </div>
                     </div>
                     <div class="result_list row" id="results">
                         <!--create search block elements with JS-->
@@ -94,29 +101,86 @@
         let selectionType = String(tempVar[0].toLowerCase());
         let searchValue = String(tempVar[1].toUpperCase());
         let uid = localStorage.getItem("userId");
-        console.log('HELLO', selectionType, typeof (selectionType), searchValue, typeof (searchValue));
+        //console.log('HELLO', selectionType, typeof (selectionType), searchValue, typeof (searchValue));
         let tempSplit = searchValue.split(' ');
         let keySearchValue = tempSplit[0].toLowerCase();
+        let itemsRef = db.collection("items");
         if (selectionType === "users") {
-            console.log("here1");
+            //console.log("here1");
             keySearchValue = keySearchValue.charAt(0).toUpperCase() + keySearchValue.slice(1);
             queryUsersResults();
         } else {
             queryItemsResults();
         }
-        function addCustomItem() {
-            
+        function editCollapsedContent() {
+            itemNameEditElem = document.getElementById("customItemName");
+            itemPriceEditElem = document.getElementById("customItemPrice");
+            itemNameEditElem.setAttribute("contenteditable", "true");
+            itemPriceEditElem.setAttribute("contenteditable", "true");
+            saveBtnElem = document.getElementById("saveBtn");
+            saveBtnElem.onclick = function() {
+                console.log(itemNameEditElem.innerHTML);
+                console.log(itemPriceEditElem.innerHTML);
+
+            itemsRef.doc(itemNameEditElem.innerHTML).set({
+                price: itemPriceEditElem.innerHTML,
+                img_src: temp
+            }).then(function() {
+                console.log("Document successfully written!");
+            })
+        } 
+        }
+        let fileTag = document.getElementById("filetag");
+        let preview = document.getElementById("customItemImg");
+        preview.style.width = 400 + 'px';
+        //console.log(uuidv4());
+        
+        let uniqueKey = uuidv4();
+        let temp;
+   
+        let itemPhotoStorageRef = firebase.storage().ref("Custom Item Photos/" + uniqueKey);
+        //let customToken = itemPhotoStorageRef.accessToken;
+        function openFile(event) {
+            let reader = new FileReader();
+            let input = event.target;
+
+            //if (input.files && input.files[0]) {
+            //    reader = new FileReader();
+
+                reader.onload = function() {
+                    let dataURL = reader.result;
+                    //store picture to db storage and set the new profile photo path to it
+                    // here
+                    // make sure user uploading file is it's own profile only
+                    //console.log(dataURL);
+                    //profilePhotoStorageRef.put(dataURL);
+                    preview.setAttribute('src', dataURL);
+                    temp = dataURL;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+                //temp = dataURL;
+                //console.log(uid);
+                
+                itemPhotoStorageRef.put(input.files[0]);
+                //console.log(input.files[0]);
+        }
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+            });
         }
         function queryUsersResults() {
             db.collection("users").orderBy("name").startAt(keySearchValue).endAt(keySearchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    console.log(doc.id, doc.data());
+                    //console.log(doc.id, doc.data());
                     createUserBlockResults(doc.id, doc.data());
                 });
             });
         }
         function createUserBlockResults(frienduid, data) {
-            console.log("here3");
+            //console.log("here3");
             divElem = document.createElement("DIV");
             imgElem = document.createElement("IMG");
             pElemName = document.createElement("P");
