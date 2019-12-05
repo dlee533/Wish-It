@@ -201,13 +201,11 @@
 
                 // Or inserted into an <img> element:
                 let displayProfilePhoto = document.getElementById("profilePhoto");
-                if (url === null) {
-                    displayProfilePhoto.src = userData.profile_photo;
-                } else {
-                    displayProfilePhoto.src = url;
-                }
+                displayProfilePhoto.src = url;
+                
                 }).catch(function(error) {
                 // Handle any errors
+                displayProfilePhoto.src = userData.profile_photo;
                 });
         }
 
