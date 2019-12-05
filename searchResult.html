@@ -82,7 +82,7 @@
 
     </body>
     <script>
-        console.log("test ver 1.01");
+        console.log("test ver 2.041");
         let db = firebase.firestore();
         let queryStringURL = decodeURIComponent(window.location.search);
         let tempVar = queryStringURL.split('?');
@@ -92,16 +92,17 @@
         let searchValue = String(tempVar[1].toUpperCase());
         let uid = localStorage.getItem("userId");
         console.log('HELLO', selectionType, typeof (selectionType), searchValue, typeof (searchValue));
-
+        let tempSplit = searchValue.split(' ');
+        let keySearchValue = tempSplit[0].toLowerCase();
         if (selectionType === "users") {
             console.log("here1");
+            keySearchValue = keySearchValue.charAt(0).toUpperCase() + keySearchValue.slice(1);
             queryUsersResults();
         } else {
             queryItemsResults();
         }
         function queryUsersResults() {
-            console.log("here2");
-            db.collection("users").orderBy("name").startAt(searchValue).endAt(searchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
+            db.collection("users").orderBy("name").startAt(keySearchValue).endAt(keySearchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     console.log(doc.id, doc.data());
                     createUserBlockResults(doc.id, doc.data());
@@ -125,10 +126,11 @@
             addFriendBtnElem.innerHTML = "Add Friend";
             addFriendBtnElem.onclick = function() {
                 //add to friend's friend request system (no need for requests on user)
+                console.log("added test");
                 db.collection("users").doc(frienduid).collection("requests").doc(uid).set({
                     userRef: db.doc("users/" + uid)
                 });
-                addFriendBtnElem.innerHTML = "Added!";
+                this.innerHTML = "Added!";
             }
             divElem.appendChild(addFriendBtnElem);
             viewFriendBtnElem = document.createElement("BUTTON");
@@ -144,9 +146,8 @@
             pElemName.innerHTML = data.name;
             pElemBackground.innerHTML = data.short_bio;    //short bio (residence location, education background)
         }
-
         function queryItemsResults() {
-            db.collection("items").orderBy('__name__').startAt(searchValue).endAt(searchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
+            db.collection("items").orderBy('__name__').startAt(keySearchValue).endAt(keySearchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     console.log(doc.data());
                     createItemBlockResults(doc.id, doc.data());
