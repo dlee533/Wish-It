@@ -32,7 +32,7 @@
         <!-- header -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="home.html">WishIt</a>
+                <a class="navbar-brand" href="main.html">WishIt</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -82,11 +82,13 @@
                             <img id="customItemImg" />
                             <button id="saveBtn">Add item to my wishlist</button>
                         </div>
-                    </div>
+                </div id="parentDiv">
+                    <div>
                     <div class="result_list row" id="results">
                         <!--create search block elements with JS-->
 
                     </div>
+                </div>
                 </div>
             </div>
 
@@ -112,10 +114,13 @@
         } else {
             queryItemsResults();
         }
+        let temp;
         let userWishListRef = db.collection("users").doc(uid).collection("wishlist")
         function editCollapsedContent() {
             itemNameEditElem = document.getElementById("customItemName");
             itemPriceEditElem = document.getElementById("customItemPrice");
+            itemNameEditElem.style.border = "thick solid #0000FF";
+            itemPriceEditElem.style.border = "thick solid #0000FF";
             itemNameEditElem.setAttribute("contenteditable", "true");
             itemPriceEditElem.setAttribute("contenteditable", "true");
             saveBtnElem = document.getElementById("saveBtn");
@@ -141,7 +146,6 @@
         //console.log(uuidv4());
         
         let uniqueKey = uuidv4();
-        let temp;
    
         let itemPhotoStorageRef = firebase.storage().ref("Custom Item Photos/" + uniqueKey);
         //let customToken = itemPhotoStorageRef.accessToken;
@@ -184,6 +188,7 @@
                 });
             });
         }
+        let parentDiv = document.getElementById("parentDiv");
         function createUserBlockResults(frienduid, data) {
             //console.log("here3");
             divElem = document.createElement("DIV");
@@ -205,7 +210,11 @@
                 db.collection("users").doc(frienduid).collection("requests").doc(uid).set({
                     userRef: db.doc("users/" + uid)
                 });
-                this.innerHTML = "Added!";
+                this.innerHTML = "Request sent!";
+
+                setTimeout(function() {
+                            parentDiv.removeChild(divElem);
+                }, 1500);
             }
             divElem.appendChild(addFriendBtnElem);
             viewFriendBtnElem = document.createElement("BUTTON");
@@ -214,13 +223,32 @@
             //db.collection("users").doc(doc.id).get().then(function(doc) {
                 window.location.href = "profile.html?" + frienduid;    
             }
-
+            let profilePhotoStorageRef = firebase.storage().ref("Profile Photos/" + frienduid);
             divElem.appendChild(viewFriendBtnElem);
-            imgElem.setAttribute("SRC", data.profile_photo);    //to be added on user's profile page and update to db
+            //imgElem.setAttribute("SRC", data.profile_photo);    //to be added on user's profile page and update to db
             imgElem.setAttribute("WIDTH", 150 + 'px');        // to be edited with CSS; temporary here for testing
             pElemName.innerHTML = data.name;
             pElemBackground.innerHTML = data.short_bio;    //short bio (residence location, education background)
+            profilePhotoStorageRef.getDownloadURL().then(function(url) {
+            //get profile photo from storage
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = 'blob';
+                xhr.onload = function(event) {
+                    var blob = xhr.response;
+                };
+                xhr.open('GET', url);
+                //xhr.send();
+
+                // Or inserted into an <img> element:
+                
+                imgElem.src = url;
+                
+                }).catch(function(error) {
+                // Handle any errors
+                imgElem.src = db.collection("users").doc(frienduid).profile_photo.get();
+                });
         }
+        
         function queryItemsResults() {
             db.collection("items").orderBy('__name__').startAt(keySearchValue).endAt(keySearchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
