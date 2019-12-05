@@ -98,7 +98,7 @@
         function readRequests() {   //doc.id is other user's uid; tested; works
             db.collection("users").doc(uid).collection("requests").get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
-                    //console.log(doc.data().userRef);
+                    console.log(doc.data().userRef);
                     let userRef = doc.data().userRef;
                     userDocRef(userRef);  // read friend requests from db and display the requests on browser
                 });
@@ -111,7 +111,7 @@
             //display friend requests on browser
             userReference.get().then(function(doc) {
                 if (doc.exists) {
-                    //console.log("Document data:", doc.data());
+                    console.log("Document data:", doc.data());
                     console.log("hello1", doc.id);
                     //<div class="card-body">
                     let innerDivRequestBlockElem = document.createElement("DIV");
