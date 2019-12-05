@@ -132,29 +132,34 @@
 
             let shortBioTextElem = document.getElementById("shortBio");
             let bioBlockElem = document.getElementById("bioBlock");
-            let editShortBioElement = document.createElement("INPUT");
-            editShortBioElement.setAttribute("TYPE", "BUTTON");
-            editShortBioElement.setAttribute("ID", "shortBioBtn");
-            let shortBioBtnElem = document.getElementById("shortBioBtn");
-            bioBlockElem.appendChild(editShortBioElement);//shortBioBtnElem);
+            let editShortBioElem = document.createElement("button");
+            editShortBioElem.setAttribute("ID", "shortBioBtn");
+            bioBlockElem.appendChild(editShortBioElem);//shortBioBtnElem);
+            let i = 0;
             shortBioEdit();
             function shortBioEdit() {
-                editShortBioElement.setAttribute("VALUE", "Edit short bio");
+                i++;
+                console.log(i);
+                editShortBioElem.innerHTML = "Edit Bio";
 
-                editShortBioElement.onclick = function() {
-                    editShortBio();
-                }
-            }
-            function editShortBio() {
-                shortBioTextElem.setAttribute("contenteditable", "true");
-                this.setAttribute("VALUE", "SAVE");
-                if (editShortBioElement.value === "SAVE") {
-                    editShortBioElement.onclick = function() {
+                editShortBioElem.onclick = function() {
+                    //editShortBio();
+                    shortBioTextElem.setAttribute("contenteditable", "true");
+                    this.innerHTML = "Save";
+                    this.onclick = function () {
+                        i = 0;
+                        console.log(i);
+                        db.collection("users").doc(uid).set({
+                            short_bio: shortBioTextElem.innerHTML
+                        })
                         //editShortBioElement.innerHTML = editedShortBioElement;
-                        editShortBioElement.setAttribute("contenteditable", "false");
+                        shortBioTextElem.setAttribute("contenteditable", "false");
+                        if (i === 0) {
+                            console.log('here');
+                            shortBioEdit();
+                        }
                     }
                 }
-                shortBioEdit();
             }
         }
 
