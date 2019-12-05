@@ -73,6 +73,9 @@
             <div class="card col-12 col-lg-6">
                 <div class="card-body">
                     <p class="result_info" id="resultInfoLabel">Results:</p>
+                    <div id="addCustomItem">
+                        <button id="addCustomItemBtn" onclick="addCustomItem()">Add Custom Item</button>
+                    </div>
                     <div class="result_list row" id="results">
                         <!--create search block elements with JS-->
 
@@ -100,6 +103,9 @@
             queryUsersResults();
         } else {
             queryItemsResults();
+        }
+        function addCustomItem() {
+            
         }
         function queryUsersResults() {
             db.collection("users").orderBy("name").startAt(keySearchValue).endAt(keySearchValue + '\uf8ff').limit(10).get().then(function (querySnapshot) {
