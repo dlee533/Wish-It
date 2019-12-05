@@ -92,7 +92,7 @@
 
     </body>
     <script>
-        console.log("test ver 2.041");
+        console.log("ver 3.01");
         let db = firebase.firestore();
         let queryStringURL = decodeURIComponent(window.location.search);
         let tempVar = queryStringURL.split('?');
@@ -112,6 +112,7 @@
         } else {
             queryItemsResults();
         }
+        let userWishListRef = db.collection("users").doc(uid).collection("wishlist")
         function editCollapsedContent() {
             itemNameEditElem = document.getElementById("customItemName");
             itemPriceEditElem = document.getElementById("customItemPrice");
@@ -121,12 +122,16 @@
             saveBtnElem.onclick = function() {
                 console.log(itemNameEditElem.innerHTML);
                 console.log(itemPriceEditElem.innerHTML);
-
             itemsRef.doc(itemNameEditElem.innerHTML).set({
                 price: itemPriceEditElem.innerHTML,
                 img_src: temp
             }).then(function() {
                 console.log("Document successfully written!");
+            })
+            userWishListRef.doc(itemNameEditElem.innerHTML).set({
+                itemRef: "items/" + itemNameEditElem.innerHTML
+            }).then(function() {
+                console.log("ItemRef Document successfully written!");
             })
         } 
         }
@@ -229,12 +234,19 @@
             imgElem = document.createElement("IMG");
             pElemName = document.createElement("P");
             pElemPrice = document.createElement("P");
+            btnElemAddToWishList = document.createElemnt("BUTTON");
 
             parentDiv = document.getElementById("results");
             parentDiv.appendChild(divElem);
             divElem.appendChild(imgElem);
             divElem.appendChild(pElemName);
             divElem.appendChild(pElemPrice);
+            divElem.appendChild(btnElemAddToWishList);
+            btnElemAddToWishList.onclick = function() {
+                userWishListRef.doc(pElemName.innerHTML).set({
+              itemRef: db.doc("items/" + pElemName.innerHTML)
+            });
+            }
             imgElem.setAttribute("SRC", data.img_src);
             imgElem.setAttribute("WIDTH", 150 + 'px');        // to be edited with CSS; temporary here for testing
             pElemName.innerHTML = name;
