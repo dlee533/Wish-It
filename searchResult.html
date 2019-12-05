@@ -94,10 +94,10 @@
         console.log('HELLO', selectionType, typeof (selectionType), searchValue, typeof (searchValue));
         let tempSplit = searchValue.split(' ');
         let keySearchValue = tempSplit[0].toLowerCase();
-        keySearchValue = keySearchValue.splitName[0].charAt(0).toUpperCase() + splitName[0].slice(1);
         console.log(keySearchValue);
         if (selectionType === "users") {
             console.log("here1");
+            keySearchValue = keySearchValue.charAt(0).toUpperCase() + keySearchValue.slice(1);
             queryUsersResults();
         } else {
             queryItemsResults();
@@ -127,10 +127,11 @@
             addFriendBtnElem.innerHTML = "Add Friend";
             addFriendBtnElem.onclick = function() {
                 //add to friend's friend request system (no need for requests on user)
+                console.log("added test");
                 db.collection("users").doc(frienduid).collection("requests").doc(uid).set({
                     userRef: db.doc("users/" + uid)
                 });
-                addFriendBtnElem.innerHTML = "Added!";
+                this.innerHTML = "Added!";
             }
             divElem.appendChild(addFriendBtnElem);
             viewFriendBtnElem = document.createElement("BUTTON");

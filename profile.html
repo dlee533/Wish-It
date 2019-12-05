@@ -147,7 +147,7 @@
             }
             function editShortBio() {
                 shortBioTextElem.setAttribute("contenteditable", "true");
-                editShortBioElement.setAttribute("VALUE", "SAVE");
+                this.setAttribute("VALUE", "SAVE");
                 if (editShortBioElement.value === "SAVE") {
                     editShortBioElement.onclick = function() {
                         //editShortBioElement.innerHTML = editedShortBioElement;
