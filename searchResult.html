@@ -82,7 +82,7 @@
 
     </body>
     <script>
-        console.log("test ver 2.04");
+        console.log("test ver 2.041");
         let db = firebase.firestore();
         let queryStringURL = decodeURIComponent(window.location.search);
         let tempVar = queryStringURL.split('?');
@@ -94,7 +94,6 @@
         console.log('HELLO', selectionType, typeof (selectionType), searchValue, typeof (searchValue));
         let tempSplit = searchValue.split(' ');
         let keySearchValue = tempSplit[0].toLowerCase();
-        console.log(keySearchValue);
         if (selectionType === "users") {
             console.log("here1");
             keySearchValue = keySearchValue.charAt(0).toUpperCase() + keySearchValue.slice(1);
