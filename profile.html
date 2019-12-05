@@ -92,6 +92,7 @@
                 <div class="card-body">
                     <div class="form-inline">
                         <input type="checkbox" class="itemCheck" style="visibility:hidden;">
+                        <img class="itemImg">
                         <!-- initially set the raio button display to none-->
                         <!--set the value to the item name/other identificaftion-->
                         <div class="row">
@@ -291,12 +292,14 @@
                 $("#start").find(".itemName:last").text(item.id);
                 $("#start").find(".itemPrice:last").text(item.data()['price']);
                 $("#start").find(".itemCheck:last").val(item.id);
+                $("#start").find(".itemImg:last").attr("src", item.data()['img_src']);
             } else {
                 console.log(item.id)
                 itemCard.last.value = "filled";
                 $("#start").find(".itemName").text(item.id);
                 $("#start").find(".itemPrice").text(item.data()["price"]);
                 $("#start").find(".itemCheck:last").val(item.id);
+                $("#start").find(".itemImg:last").attr("src", item.data()['img_src']);
             }
         }
         readWishlist();
