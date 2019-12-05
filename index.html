@@ -380,14 +380,6 @@
         }
         readAllItems();
     
-        function myProfileDirect() {
-            let my_profile = document.getElementById("myProfile");
-            my_profile.onclick = function() {
-                window.location.href = "profile.html?" + localStorage.getItem('userId');
-            };
-        }
-        myProfileDirect();
-    
         function querySearch() {
             let selection = document.getElementById("dropDownSelect").value;
             //let btn = document.getElementById("queryButton");

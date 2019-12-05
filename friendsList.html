@@ -119,6 +119,10 @@
                     let imgProfilePhotoElem = document.createElement("IMG");
                     let pNameElem = document.createElement("P");
                     let btnAcceptElem = document.createElement("BUTTON");
+                    friendRequestContainerElem.appendChild(innerDivRequestBlockElem);
+                    innerDivRequestBlockElem.appendChild(imgProfilePhotoElem);
+                    innerDivRequestBlockElem.appendChild(pNameElem);
+                    innerDivRequestBlockElem.appendChild(btnAcceptElem);
                     imgProfilePhotoElem.setAttribute("SRC", doc.data().profile_photo);
                     pNameElem.innerHTML = doc.data().name;
                     btnAcceptElem.innerHTML = "Accept";
@@ -136,10 +140,6 @@
                             friendRequestContainerElem.removeChild(innerDivRequestBlockElem);
                         }, 1500);
                     }
-                    friendRequestContainerElem.appendChild(innerDivRequestBlockElem);
-                    innerDivRequestBlockElem.appendChild(imgProfilePhotoElem);
-                    innerDivRequestBlockElem.appendChild(pNameElem);
-                    innerDivRequestBlockElem.appendChild(btnAcceptElem);
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
