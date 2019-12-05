@@ -111,7 +111,7 @@
 
     <script>
         let db = firebase.firestore();
-        console.log("test ver 2.02");
+        console.log("test ver 2.03");
         let queryStringURL = decodeURIComponent(window.location.search);
         let tempVar = queryStringURL.split('?');
         let uid = tempVar[1];
@@ -196,12 +196,14 @@
 
                 // Or inserted into an <img> element:
                 let displayProfilePhoto = document.getElementById("profilePhoto");
-                displayProfilePhoto.src = url;
+                if (url === null) {
+                    displayProfilePhoto.src = userData.profile_photo;
+                } else {
+                    displayProfilePhoto.src = url;
+                }
                 }).catch(function(error) {
                 // Handle any errors
                 });
-            displayProfilePhoto.setAttribute("SRC", profilePhotoStorageRef.getDownloadURL());//userData.profile_photo); // to be updated on db storage once user uploads manually
-            //getUserWishList();
         }
 
         let fileTag = document.getElementById("filetag");
@@ -227,6 +229,7 @@
                 }
 
                 reader.readAsDataURL(input.files[0]);
+                console.log(uid);
                 profilePhotoStorageRef.put(input.files[0]);
                 console.log(input.files[0]);
         }

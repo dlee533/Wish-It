@@ -22,6 +22,7 @@
         https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>    
 
 
     <script>
@@ -46,8 +47,9 @@
     <script>
         // Initialize the FirebaseUI Widget using Firebase.
         var db = firebase.firestore();
-        console.log("test ver 1.02");
+        console.log("test ver 2.042");
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        //console.log(defaultProfilePhotoStorageRef.getDownloadURL());
         var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function(authResult, redirectUrl) {
@@ -55,16 +57,24 @@
       // Return type determines whether we continue the redirect automatically
       // or whether we leave that to developer to handle.
       var user = authResult.user;
+      //let profilePhotoStorageRef = firebase.storage().ref("Profile Photos/" + user.uid);
+      //let defaultProfilePhotoStorageRef = firebase.storage().ref("Profile Photos/default_profile_pic.jpeg");
+      //profilePhotoStorageRef.put(defaultProfilePhotoStorageRef.getDownloadURL());
+      //console.log(defaultProfilePhotoStorageRef.getDownloadURL());
       localStorage.clear();
       localStorage.setItem("userId", user.uid);
       console.log(localStorage.getItem("userId"));
       if (authResult.additionalUserInfo.isNewUser) {
+
           db.collection("users").doc(user.uid).collection("wishlist").doc("empty").set({
               
           });
+          let splitName = user.displayName.split(' ');
+          let firstName = splitName[0].charAt(0).toUpperCase() + splitName[0].slice(1);
+          let lastName = splitName[1].charAt(0).toUpperCase() + splitName[1].slice(1);
           db.collection("users").doc(user.uid).set({
               display_name: user.displayName,
-              name: user.displayName,
+              name: firstName + ' ' + lastName,
               email: user.email,
               short_bio: "Vancouver, BC, Canada",
               profile_photo: "https://firebasestorage.googleapis.com/v0/b/fir-f9d7a.appspot.com/o/Profile%20Photos%2Fdefault_profile_pic.jpeg?alt=media&token=804f3b39-a54e-4044-bb89-7948e994bc98"
