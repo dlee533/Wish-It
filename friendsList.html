@@ -66,7 +66,7 @@
             <h1 class="display-3">Friends Request</h1>
             <div class="card col-6 col-lg-4" id="friendRequestBlock">
                 <!--clone this level when adding more friends-->
-                <div class="card-body">
+                <!--<div class="card-body">-->
                     <!--<img src="images/profile_pic.png" alt="profile_pic" class="responsive">
                     <p class="friend_name">Name:</p>-->
                     <!--replace this with actual name-->
@@ -100,7 +100,7 @@
                 querySnapshot.forEach(function(doc) {
                     //console.log(doc.data().userRef);
                     let userRef = doc.data().userRef;
-                    userDocRef(userRef);
+                    userDocRef(userRef);  // read friend requests from db and display the requests on browser
                 });
             });
         }
@@ -108,10 +108,14 @@
         let friendRequestContainerElem = document.getElementById("friendRequestBlock");
         
         function userDocRef(userReference) { //tested; works
+            //display friend requests on browser
             userReference.get().then(function(doc) {
                 if (doc.exists) {
                     //console.log("Document data:", doc.data());
                     console.log("hello1", doc.id);
+                    //<div class="card-body">
+                    let innerDivRequestBlockElem = document.createElement("DIV");
+                    innerDivRequestBlockElem.className = "card-body";
                     let imgProfilePhotoElem = document.createElement("IMG");
                     let pNameElem = document.createElement("P");
                     let btnAcceptElem = document.createElement("BUTTON");
@@ -120,11 +124,22 @@
                     btnAcceptElem.innerHTML = "Accept";
                     btnAcceptElem.onclick = function() {
                         addFriendToFriendList(doc.id);  //add ref to friend user uid
-                        btnAcceptElem.innerHTML = "Added!";
+                        this.innerHTML = "Added!";
+                        //delete friend request from db now that they are friends
+                        db.collection("users").doc(uid).collection("requests").doc(doc.id).delete().then(function() {
+                            console.log("Document successfully deleted!");
+                        }).catch(function(error) {
+                            console.error("Error removing document: ", error);
+                        });
+
+                        setTimeout(function() {
+                            friendRequestContainerElem.removeChild(innerDivRequestBlockElem);
+                        }, 1500);
                     }
-                    friendRequestContainerElem.appendChild(imgProfilePhotoElem);
-                    friendRequestContainerElem.appendChild(pNameElem);
-                    friendRequestContainerElem.appendChild(btnAcceptElem);
+                    friendRequestContainerElem.appendChild(innerDivRequestBlockElem);
+                    innerDivRequestBlockElem.appendChild(imgProfilePhotoElem);
+                    innerDivRequestBlockElem.appendChild(pNameElem);
+                    innerDivRequestBlockElem.appendChild(btnAcceptElem);
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
