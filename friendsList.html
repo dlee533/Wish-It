@@ -64,7 +64,7 @@
         <!-- friends request -->
         <div class="jumbotron">
             <h1 class="display-3">Friends Request</h1>
-            <div class="card col-6 col-lg-4" id="friendRequestBlock">
+            <div class="card col-5 col-lg-4" id="friendRequestBlock">
                 <!--clone this level when adding more friends-->
                 <!--<div class="card-body">-->
                     <!--<img src="images/profile_pic.png" alt="profile_pic" class="responsive">
@@ -117,6 +117,7 @@
                     let innerDivRequestBlockElem = document.createElement("DIV");
                     innerDivRequestBlockElem.className = "card-body";
                     let imgProfilePhotoElem = document.createElement("IMG");
+                    imgProfilePhotoElem.className += "responsive";
                     let pNameElem = document.createElement("P");
                     let btnAcceptElem = document.createElement("BUTTON");
                     friendRequestContainerElem.appendChild(innerDivRequestBlockElem);
