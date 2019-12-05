@@ -151,7 +151,8 @@
                         console.log(i);
                         db.collection("users").doc(uid).set({
                             short_bio: shortBioTextElem.innerHTML
-                        })
+
+                        }, {merge: true});
                         //editShortBioElement.innerHTML = editedShortBioElement;
                         shortBioTextElem.setAttribute("contenteditable", "false");
                         if (i === 0) {
@@ -183,6 +184,7 @@
             let displayWishListElem = document.getElementById("myWishList");            
         }
         function updateElements(userData) {
+            let displayProfilePhoto = document.getElementById("profilePhoto");
             console.log(userData.name);
             //let wishListRef = db.collection("users").doc(uid).collction("wishlist");
             let displayNameElem = document.getElementById("displayName");
@@ -200,7 +202,7 @@
                 //xhr.send();
 
                 // Or inserted into an <img> element:
-                let displayProfilePhoto = document.getElementById("profilePhoto");
+                
                 displayProfilePhoto.src = url;
                 
                 }).catch(function(error) {
