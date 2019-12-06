@@ -150,7 +150,7 @@
         }
         // console.log(user.uid, localStorage.getItem('userId'));
         function myProfileDirect() {
-                //direct to the user's profile page when the user clicks on the my profile nav bar.
+    //direct to the user's profile page when the user clicks on the my profile nav bar.
     //the logged-in user's uid is passed on by url 
             let my_profile = document.getElementById("myProfile");
             my_profile.onclick = function () {
@@ -159,16 +159,16 @@
         }
         myProfileDirect();
         function myFriendsDirect() {
+    //direct the user to the friendslist.html where the user can see their friend list if
+    //they have accepted friends request in the past
+    //the user's uid is passed down by url 
+    //wishlist
             let my_friends = document.getElementById("myFriends");
             my_friends.onclick = function () {
                 window.location.href = "friendsList.html?" + localStorage.getItem('userId');
             };
         }
         myFriendsDirect();
-    //direct the user to the friendslist.html where the user can see their friend list if
-    //they have accepted friends request in the past
-    //the user's uid is passed down by url 
-        //wishlist
         function readWishlist() {
             db.collection("users").doc(uid).collection("wishlist").get()
                 .then(function (querySnapshot) {
