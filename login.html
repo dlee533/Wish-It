@@ -23,108 +23,12 @@
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-storage.js"></script>    
+    
 
-
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyCZJFlf1Q-uKORv49mZwHqKwYxjZMYpYxg",
-            authDomain: "fir-f9d7a.firebaseapp.com",
-            databaseURL: "https://fir-f9d7a.firebaseio.com",
-            projectId: "fir-f9d7a",
-            storageBucket: "fir-f9d7a.appspot.com",
-            messagingSenderId: "526422688230",
-            appId: "1:526422688230:web:a4c71e058f33d2fa30d627"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        
-    </script>
+    <script src="firebaseConfig.js"></script>
 
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-
-    <script>
-        // Initialize the FirebaseUI Widget using Firebase.
-        var db = firebase.firestore();
-        console.log("ver 3.01");
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        //console.log(defaultProfilePhotoStorageRef.getDownloadURL());
-        var uiConfig = {
-  callbacks: {
-    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-      // User successfully signed in.
-      // Return type determines whether we continue the redirect automatically
-      // or whether we leave that to developer to handle.
-      var user = authResult.user;
-      //let profilePhotoStorageRef = firebase.storage().ref("Profile Photos/" + user.uid);
-      //let defaultProfilePhotoStorageRef = firebase.storage().ref("Profile Photos/default_profile_pic.jpeg");
-      //profilePhotoStorageRef.put(defaultProfilePhotoStorageRef.getDownloadURL());
-      //console.log(defaultProfilePhotoStorageRef.getDownloadURL());
-      localStorage.clear();
-      localStorage.setItem("userId", user.uid);
-      console.log(localStorage.getItem("userId"));
-      if (authResult.additionalUserInfo.isNewUser) {
-
-          let splitName = user.displayName.split(' ');
-          let firstName = splitName[0].charAt(0).toUpperCase() + splitName[0].slice(1);
-          let lastName = splitName[1].charAt(0).toUpperCase() + splitName[1].slice(1);
-          db.collection("users").doc(user.uid).set({
-              display_name: user.displayName,
-              name: firstName + ' ' + lastName,
-              email: user.email,
-              short_bio: "Vancouver, BC, Canada",
-              profile_photo: "https://firebasestorage.googleapis.com/v0/b/fir-f9d7a.appspot.com/o/Profile%20Photos%2Fdefault_profile_pic.jpeg?alt=media&token=804f3b39-a54e-4044-bb89-7948e994bc98"
-          })
-          .then(function () {
-              window.location.assign('main.html');
-          })
-          .catch(function(error) {
-              console.log("something bad happened");
-          });
-        }
-        else 
-        {
-            return true;
-        }
-        return false
-    },
-    uiShown: function() {
-      // The widget is rendered.
-      // Hide the loader.
-      document.getElementById('loader').style.display = 'none';
-    }
-  },
-  // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-  signInFlow: 'popup',
-  signInSuccessUrl: 'main.html',
-  signInOptions: [
-    // Leave the lines as is for the providers you want to offer your users.
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  ],
-  // Terms of service url.
-  tosUrl: '<your-tos-url>',
-  // Privacy policy url.
-  privacyPolicyUrl: '<your-privacy-policy-url>'
-};
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    localStorage.clear();
-    localStorage.setItem("userId", user.uid);
-    // ...
-  } else {
-    // User is signed out.
-    // ...
-    localStorage.clear();
-  }
-});
-
-// The start method will wait until the DOM is loaded.
-ui.start('#firebaseui-auth-container', uiConfig);
-    </script>
 
 </head>
 
@@ -157,7 +61,7 @@ ui.start('#firebaseui-auth-container', uiConfig);
     <div id="firebaseui-auth-container"></div>
     <div id="loader">Loading...</div>
 
-
+<script src="login.js"></script>
 </body>
 
 </html>
