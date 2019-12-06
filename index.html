@@ -330,7 +330,7 @@
                 });
     
             });
-            db.collection("items").where("category", "==", "clothing and shoes").limit(6).get().then(function(querySnapshot) {
+            db.collection("items").where("category", "==", "clothing and shoes").limit(5).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
                                         //    console.log(doc.id, " => ", doc.data());
@@ -342,7 +342,7 @@
                 });
     
             });
-            db.collection("items").where("category", "==", "office equipment").limit(6).get().then(function(querySnapshot) {
+            db.collection("items").where("category", "==", "office equipment").limit(5).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
                                         //    console.log(doc.id, " => ", doc.data());
@@ -354,7 +354,7 @@
                 });
     
             });
-            db.collection("items").where("category", "==", "sports equipment").limit(6).get().then(function(querySnapshot) {
+            db.collection("items").where("category", "==", "sports equipment").limit(5).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
                                         //    console.log(doc.id, " => ", doc.data());
@@ -366,7 +366,7 @@
                 });
     
             });
-            db.collection("items").where("category", "==", "house products").limit(6).get().then(function(querySnapshot) {
+            db.collection("items").where("category", "==", "house products").limit(5).get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
                                         //    console.log(doc.id, " => ", doc.data());

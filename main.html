@@ -316,7 +316,7 @@
       let uid = localStorage.getItem('userId');
       let userWishListRef = db.collection("users").doc(uid).collection("wishlist");
       let i = 0;
-      db.collection("items").where("category", "==", "tech").limit(6).get().then(function (querySnapshot) {
+      db.collection("items").where("category", "==", "tech").limit(5).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
@@ -332,7 +332,7 @@
           i++;
         });
       });
-      db.collection("items").where("category", "==", "clothing and shoes").limit(6).get().then(function (querySnapshot) {
+      db.collection("items").where("category", "==", "clothing and shoes").limit(5).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
@@ -348,7 +348,7 @@
           i++;
         });
       });
-      db.collection("items").where("category", "==", "office equipment").limit(6).get().then(function (querySnapshot) {
+      db.collection("items").where("category", "==", "office equipment").limit(5).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
@@ -364,7 +364,7 @@
           i++;
         });
       });
-      db.collection("items").where("category", "==", "sports equipment").limit(6).get().then(function (querySnapshot) {
+      db.collection("items").where("category", "==", "sports equipment").limit(5).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());
@@ -380,7 +380,7 @@
           i++;
         });
       });
-      db.collection("items").where("category", "==", "house products").limit(6).get().then(function (querySnapshot) {
+      db.collection("items").where("category", "==", "house products").limit(5).get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
           //    console.log(doc.id, " => ", doc.data());

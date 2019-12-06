@@ -217,6 +217,7 @@
         //fileTag.addEventListener("onchange", function() {
         //        changeImage(this);
         //});
+        let temp;
         function openFile(event) {
             let reader = new FileReader();
             let input = event.target;
@@ -232,12 +233,16 @@
                     //console.log(dataURL);
                     //profilePhotoStorageRef.put(dataURL);
                     preview.setAttribute('src', dataURL);
+                    temp = dataURL;
                 }
 
                 reader.readAsDataURL(input.files[0]);
                 console.log(uid);
                 profilePhotoStorageRef.put(input.files[0]);
                 console.log(input.files[0]);
+                db.collection("users").doc(uid).set({
+                    profile_photo: temp
+                });
         }
         
         function querySearch() {
