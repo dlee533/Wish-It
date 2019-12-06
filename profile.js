@@ -75,6 +75,8 @@
         getUserData();
         let myWishList = [];    // store wishlistitem refs here
         function updateElements(userData) {
+            // this function update the elements including the profile picture, name, and the short bio
+            // it executes when the pages is loaded
             let displayProfilePhoto = document.getElementById("profilePhoto");
             console.log(userData.name);
             //let wishListRef = db.collection("users").doc(uid).collction("wishlist");
@@ -109,6 +111,9 @@
         //});
         let temp;
         function openFile(event) {
+            // this function allows user to open the file for profile photo
+            // when the user updates the pic, it updates the profile_photo field in the database+
+            // add the photo to the firebase storage
             let reader = new FileReader();
             let input = event.target;
 
@@ -170,6 +175,8 @@
         }
         myFriendsDirect();
         function readWishlist() {
+            // This function reads the wishlist when the page is loaded from the wishlist collection of 
+            // that specific user. it then pass the item one by one to createItem function
             db.collection("users").doc(uid).collection("wishlist").get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
@@ -189,6 +196,8 @@
         }
         let itemCard = $(".itemCard").first();
         function createItem(item) {
+            // this function creates item by filling out the already existing html tags, 
+            // if there are more items than one , it clones the tag and fills it in the same way
             console.log(item.data()['price']);
             if (itemCard.last.value === "filled") {
                 itemCard.clone().appendTo(".cardContainer");
@@ -225,7 +234,10 @@
         }
 
         function saveOnclickHandler() {
-            //get the value of items in an array : jquery?
+            //When save button is clicked, this function executes
+            //it first hides save button, it gets the items that has been checked, select them all and put them into an array
+            //then it hides the element from the page and delete them from database by calling another function
+            //at last, clicking on checkoffitems button displays once again.
             let itemsToDelete = document.querySelectorAll("input:checked");
             console.log(itemsToDelete)
             //hide save btn +radio btn
@@ -242,6 +254,8 @@
         }
 
         function removeItems(itemArr) {
+            // this function deletes the item document in wishlist collection by going through each element with forEach loop
+            // if the error arises while removing document, it prints helpful message on the console
             itemArr.forEach(function (item) {
                 db.collection("users").doc(uid).collection("wishlist").doc(item.value).delete().then(function () {
                     console.log(item.value, " deleted from ", uid);
